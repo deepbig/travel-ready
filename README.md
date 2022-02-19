@@ -1,2 +1,2 @@
 # Travel Ready
-https://github.com/deepbig/travel-ready
+https://travelready-39480.web.app/
