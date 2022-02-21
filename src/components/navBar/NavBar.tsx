@@ -13,21 +13,61 @@ import {
   ListItemText,
   Button,
   Avatar,
+  Badge,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 function MenuListItems(props: any) {
   const navigate = useNavigate();
 
   return (
-    <ListItem button onClick={() => navigate(`/dashboard`)}>
-      <ListItemIcon>
-        <TrackChangesIcon />
-      </ListItemIcon>
-      <ListItemText primary='Dashboard' />
-    </ListItem>
+    <div>
+      <ListItem
+        button
+        onClick={() => navigate(`/dashboard`)}
+        sx={{ height: 72 }}
+      >
+        <ListItemIcon>
+          <Badge badgeContent={'✨'}>
+            <TrackChangesIcon />
+          </Badge>
+        </ListItemIcon>
+        {props.open ? <ListItemText primary='Dashboard' /> : null}
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => navigate(`/covid-19-condition-search`)}
+        sx={{ height: 72 }}
+      >
+        <ListItemIcon>
+          <Badge badgeContent={'🔍'}>
+            <CoronavirusIcon />
+          </Badge>
+        </ListItemIcon>
+        {props.open ? (
+          <ListItemText primary='COVID-19 Condition Search' />
+        ) : null}
+      </ListItem>
+
+      <ListItem
+        button
+        onClick={() => navigate(`/places-search`)}
+        sx={{ height: 72 }}
+      >
+        <ListItemIcon>
+          <Badge badgeContent={'✈️'}>
+            <ImageSearchIcon />
+          </Badge>
+        </ListItemIcon>
+        {props.open ? (
+          <ListItemText primary='Places Search By Interests' />
+        ) : null}
+      </ListItem>
+    </div>
   );
 }
 
