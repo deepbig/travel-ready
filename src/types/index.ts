@@ -11,6 +11,11 @@ export type UserData = {
     name: string;
 } | null;
 
+export interface CountryData {
+    code: string;
+    name: string;
+}
+
 declare module '@mui/material/styles' {
     interface TypographyVariants {
         guideline: React.CSSProperties;
