@@ -10,3 +10,20 @@ export type UserData = {
     id: string;
     name: string;
 } | null;
+
+declare module '@mui/material/styles' {
+    interface TypographyVariants {
+        guideline: React.CSSProperties;
+    }
+
+    // allow configuration using `createTheme`
+    interface TypographyVariantsOptions {
+        guideline?: React.CSSProperties;
+    }
+}
+
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        guideline: true;
+    }
+}
