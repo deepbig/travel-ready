@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Toolbar } from '@mui/material';
 import NavBar from 'components/navBar/NavBar';
 import { PageName } from 'types';
+import CovidSearch from 'components/covidSearch/CovidSearch';
 
 function CovidSearchPage() {
   return (
@@ -20,7 +21,7 @@ function CovidSearchPage() {
         }}
       >
         <Toolbar />
-        {/* <CovidSearch /> */}
+        <CovidSearch />
       </Box>
     </Box>
   );
