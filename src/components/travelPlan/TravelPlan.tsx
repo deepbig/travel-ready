@@ -5,14 +5,15 @@ import React from 'react';
  * TODO - need to import Travel History data from firestore.
  * @returns
  */
-function TravelHistory() {
+function TravelPlan() {
   return (
     <Box m={2}>
       <Typography variant='guideline' align='center'>
-        You don't have any travel history. Please add places you visited!
+        You currently does not have any travel plan. Please add your next travel
+        plan!
       </Typography>
     </Box>
   );
 }
 
-export default TravelHistory;
+export default TravelPlan;

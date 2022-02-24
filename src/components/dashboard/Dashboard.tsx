@@ -1,8 +1,11 @@
 import React from 'react';
-import { Container, Grid, Paper, Box } from '@mui/material';
+import { Container, Grid, Paper } from '@mui/material';
 import Title from 'components/title/Title';
 import { useTheme } from '@mui/material/styles';
 import Copyright from 'components/copyright/Copyright';
+import TravelHistory from 'components/travelHistory/TravelHistory';
+import TravelGoal from 'components/travelGoal/TravelGoal';
+import TravelPlan from 'components/travelPlan/TravelPlan';
 
 function Dashboard() {
   const theme = useTheme();
@@ -24,7 +27,7 @@ function Dashboard() {
             elevation={4}
           >
             <Title>Travel Goal</Title>
-            {/* <TravelGoal /> */}
+            <TravelGoal />
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -42,34 +45,21 @@ function Dashboard() {
             elevation={4}
           >
             <Title>Travel Plan</Title>
-            {/* <TravelPlan /> */}
+            <TravelPlan />
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={3}>
-            {/* Travel History */}
-            <Grid item xs={12}>
-              <Paper
-                elevation={4}
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <Title>Travel History</Title>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* TODO - Need to create dummy card for this section */}
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid>
+          <Paper
+            elevation={4}
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Title>Travel History</Title>
+            <TravelHistory />
+          </Paper>
         </Grid>
       </Grid>
       <Copyright sx={{ pt: 4 }} />
