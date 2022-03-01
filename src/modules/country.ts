@@ -10,62 +10,77 @@ const initialState: CountryState = {
     countryList: [
         {
             code: "AD",
+            code3: "AND",
             name: "Andorra",
         },
         {
             code: "AE",
+            code3:"UAE",
             name: "United Arab Emirates",
         },
         {
             code: "AF",
+            code3:"AFG",
             name: "Afghanistan",
         },
         {
             code: "AG",
+            code3: "ATG",
             name: "Antigua and Barbuda",
         },
         {
             code: "AI",
+            code3:"AIA",
             name: "Anguilla",
         },
         {
             code: "AL",
+            code3:"ALB",
             name: "Albania",
         },
         {
             code: "AM",
+            code3:"ARM",
             name: "Armenia",
         },
         {
             code: "AO",
+            code3:"AGO",
             name: "Angola",
         },
         {
             code: "AQ",
+            code3:"ATA",
             name: "Antarctica",
         },
         {
             code: "AR",
+            code3:"ARG",
             name: "Argentina",
         },
         {
             code: "AS",
+            code3:"ASM",
             name: "American Samoa",
         },
         {
             code: "AT",
+            code3:"AUT",
             name: "Austria",
         },
         {
             code: "AU",
+            code3:"AUS",
             name: "Australia",
         },
         {
             code: "AW",
+            code3:"ABW",
             name: "Aruba",
         },
         {
             code: "AX",
+            code3:"ALA",
             name: "Alland Islands",
         },
         {
