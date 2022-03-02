@@ -85,86 +85,107 @@ const initialState: CountryState = {
         },
         {
             code: "AZ",
+            code3:"AZE",
             name: "Azerbaijan",
         },
         {
             code: "BA",
+            code3:"BIH",
             name: "Bosnia and Herzegovina",
         },
         {
             code: "BB",
+            code3:"BRB",
             name: "Barbados",
         },
         {
             code: "BD",
+            code3:"BGD",
             name: "Bangladesh",
         },
         {
             code: "BE",
+            code3:"BEL",
             name: "Belgium",
         },
         {
             code: "BF",
+            code3:"BFA",
             name: "Burkina Faso",
         },
         {
             code: "BG",
+            code3:"BGR",
             name: "Bulgaria",
         },
         {
             code: "BH",
+            code3:"BHR",
             name: "Bahrain",
         },
         {
             code: "BI",
+            code3:"BDI",
             name: "Burundi",
         },
         {
             code: "BJ",
+            code3:"BEN",
             name: "Benin",
         },
         {
             code: "BL",
+            code3:"BLM",
             name: "Saint Barthelemy",
         },
         {
             code: "BM",
+            code3:"BMU",
             name: "Bermuda",
         },
         {
             code: "BN",
+            code3:"BRN",
             name: "Brunei Darussalam",
         },
         {
             code: "BO",
+            code3:"BOL",
             name: "Bolivia",
         },
         {
             code: "BR",
+            code3:"BRA",
             name: "Brazil",
         },
         {
             code: "BS",
+            code3:"BHS",
             name: "Bahamas",
         },
         {
             code: "BT",
+            code3:"BTN",
             name: "Bhutan",
         },
         {
             code: "BV",
+            code3:"BVT",
             name: "Bouvet Island",
         },
         {
             code: "BW",
+            code3:"BWA",
             name: "Botswana",
         },
         {
             code: "BY",
+            code: "BLR",
             name: "Belarus",
         },
         {
             code: "BZ",
+            code3:"BLZ",
             name: "Belize",
         },
         {
