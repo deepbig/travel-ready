@@ -190,78 +190,97 @@ const initialState: CountryState = {
         },
         {
             code: "CA",
+            code3:"CAN",
             name: "Canada",
         },
         {
             code: "CC",
+            code3:"CCK",
             name: "Cocos (Keeling) Islands",
         },
         {
             code: "CD",
+            code3:"COD",
             name: "Congo, Democratic Republic of the",
         },
         {
             code: "CF",
+            code3:"CAF",
             name: "Central African Republic",
         },
         {
             code: "CG",
+            code3:"COG",
             name: "Congo, Republic of the",
         },
         {
             code: "CH",
+            code3:"CHE",
             name: "Switzerland",
         },
         {
             code: "CI",
+            code3:"CIV",
             name: "Cote d'Ivoire",
         },
         {
             code: "CK",
+            code3:"COK",
             name: "Cook Islands",
         },
         {
             code: "CL",
+            code3:"CHL",
             name: "Chile",
         },
         {
             code: "CM",
+            code3:"CMR",
             name: "Cameroon",
         },
         {
             code: "CN",
+            code3:"CHN",
             name: "China",
         },
         {
             code: "CO",
+            code3:"COL",
             name: "Colombia",
         },
         {
             code: "CR",
+            code3:"CRI",
             name: "Costa Rica",
         },
         {
             code: "CU",
+            code3:"CUB",
             name: "Cuba",
         },
         {
             code: "CV",
+            code3:"CPV",
             name: "Cape Verde",
         },
         {
             code: "CW",
+            code3:"CUW",
             name: "Curacao",
         },
         {
             code: "CX",
+            code3:"CXR",
             name: "Christmas Island",
         },
         {
             code: "CY",
+            code3:"CYP",
             name: "Cyprus",
         },
         {
             code: "CZ",
+            code3:"CZE",
             name: "Czech Republic",
         },
         {
