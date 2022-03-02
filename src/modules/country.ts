@@ -975,222 +975,277 @@ const initialState: CountryState = {
         },
         {
             code: "SC",
+            code3:"SYC",
             name: "Seychelles",
         },
         {
             code: "SD",
+            code3:"SDN",
             name: "Sudan",
         },
         {
             code: "SE",
+            code3:"SWE",
             name: "Sweden",
         },
         {
             code: "SG",
+            code3:"SGP",
             name: "Singapore",
         },
         {
             code: "SH",
+            code3:"SHN",
             name: "Saint Helena",
         },
         {
             code: "SI",
+            code3:"SVN",
             name: "Slovenia",
         },
         {
             code: "SJ",
+            code3:"SJM",
             name: "Svalbard and Jan Mayen",
         },
         {
             code: "SK",
+            code3:"SVK",
             name: "Slovakia",
         },
         {
             code: "SL",
+            code3:"SLE",
             name: "Sierra Leone",
         },
         {
             code: "SM",
+            code3:"SMR",
             name: "San Marino",
         },
         {
             code: "SN",
+            code3:"SEN",
             name: "Senegal",
         },
         {
             code: "SO",
+            code3:"SOM",
             name: "Somalia",
         },
         {
             code: "SR",
+            code3:"SUR",
             name: "Suriname",
         },
         {
             code: "SS",
+            code3:"SSD",
             name: "South Sudan",
         },
         {
             code: "ST",
+            code3:"STP",
             name: "Sao Tome and Principe",
         },
         {
             code: "SV",
+            code3:"SLV",
             name: "El Salvador",
         },
         {
             code: "SX",
+            code3:"SXM",
             name: "Sint Maarten (Dutch part)",
         },
         {
             code: "SY",
+            code3:"SYR",
             name: "Syrian Arab Republic",
         },
         {
             code: "SZ",
+            code3:"SWZ",
             name: "Swaziland",
         },
         {
             code: "TC",
+            code3:"TCA",
             name: "Turks and Caicos Islands",
         },
         {
             code: "TD",
+            code3:"TCD",
             name: "Chad",
         },
         {
             code: "TF",
+            code3:"ATF",
             name: "French Southern Territories",
         },
         {
             code: "TG",
+            code3:"TGO",
             name: "Togo",
         },
         {
             code: "TH",
+            code3:"THA",
             name: "Thailand",
         },
         {
             code: "TJ",
+            code3:"TJK",
             name: "Tajikistan",
         },
         {
             code: "TK",
+            code3:"TKL",
             name: "Tokelau",
         },
         {
             code: "TL",
+            code3:"TSL",
             name: "Timor-Leste",
         },
         {
             code: "TM",
+            code3:"TKM",
             name: "Turkmenistan",
         },
         {
             code: "TN",
+            code3:"TUN",
             name: "Tunisia",
         },
         {
             code: "TO",
+            code3:"TON",
             name: "Tonga",
         },
         {
             code: "TR",
+            code3:"TUR",
             name: "Turkey",
         },
         {
             code: "TT",
+            code3:"TTO",
             name: "Trinidad and Tobago",
         },
         {
             code: "TV",
+            code3:"TUV",
             name: "Tuvalu",
         },
         {
             code: "TW",
+            code3:"TWN",
             name: "Taiwan, Province of China",
         },
         {
             code: "TZ",
+            code3:"TZA",
             name: "United Republic of Tanzania",
         },
         {
             code: "UA",
+            code3:"UKR",
             name: "Ukraine",
         },
         {
             code: "UG",
+            code3:"UGA",
             name: "Uganda",
         },
         {
             code: "US",
+            code3:"USA",
             name: "United States",
         },
         {
             code: "UY",
+            code3:"URY",
             name: "Uruguay",
         },
         {
             code: "UZ",
+            code3:"UZB",
             name: "Uzbekistan",
         },
         {
             code: "VA",
+            code3:"VAT",
             name: "Holy See (Vatican City State)",
         },
         {
             code: "VC",
+            code3:"VCT",
             name: "Saint Vincent and the Grenadines",
         },
         {
             code: "VE",
+            code3:"VEN",
             name: "Venezuela",
         },
         {
             code: "VG",
+            code3:"VGB",
             name: "British Virgin Islands",
         },
         {
             code: "VI",
+            code3:"VIR",
             name: "US Virgin Islands",
         },
         {
             code: "VN",
+            code3:"VNM",
             name: "Vietnam",
         },
         {
             code: "VU",
+            code3:"VUT",
             name: "Vanuatu",
         },
         {
             code: "WF",
+            code3:"WLF",
             name: "Wallis and Futuna",
         },
         {
             code: "WS",
+            code3:"WSM"
             name: "Samoa",
         },
         {
             code: "XK",
+            code3:"XXK",
             name: "Kosovo",
         },
         {
             code: "YE",
+            code3:"YEM",
             name: "Yemen",
         },
         {
             code: "YT",
+            code3:"MYT",
             name: "Mayotte",
         },
         {
             code: "ZA",
+            code3:"ZAF",
             name: "South Africa",
         },
         {
             code: "ZM",
+            code3:"ZMB",
             name: "Zambia",
         },
         {
             code: "ZW",
+            code3:"ZWE",
             name: "Zimbabwe",
         },
 
