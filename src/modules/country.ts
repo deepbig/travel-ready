@@ -800,58 +800,72 @@ const initialState: CountryState = {
         },
         {
             code: "NA",
+            code3:"NAM",
             name: "Namibia",
         },
         {
             code: "NC",
+            code3:"NCL",
             name: "New Caledonia",
         },
         {
             code: "NE",
+            code3:"NER",
             name: "Niger",
         },
         {
             code: "NF",
+            code3:"NFK",
             name: "Norfolk Island",
         },
         {
             code: "NG",
+            code3:"NGA",
             name: "Nigeria",
         },
         {
             code: "NI",
+            code3:"NIC",
             name: "Nicaragua",
         },
         {
             code: "NL",
+            code3:"NLD",
             name: "Netherlands",
         },
         {
             code: "NO",
+            code3:"NOR",
             name: "Norway",
         },
         {
             code: "NP",
+            code3:"NPL",
             name: "Nepal",
         },
         {
             code: "NR",
+            code3:"NRU",
             name: "Nauru",
         },
         {
             code: "NU",
+            code3:"NIU",
             name: "Niue",
         },
         {
             code: "NZ",
+            code3:"NZL",
             name: "New Zealand",
         },
         {
             code: "OM",
+            code3:"OMN",
             name: "Oman",
         },
         {
             code: "PA",
+            code3:"PAN",
             name: "Panama",
         },
         {
