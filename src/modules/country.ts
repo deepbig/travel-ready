@@ -380,142 +380,177 @@ const initialState: CountryState = {
         },
         {
             code: "GA",
+            code3:"GAB",
             name: "Gabon",
         },
         {
             code: "GB",
+            code3:"GBR",
             name: "United Kingdom",
         },
         {
             code: "GD",
+            code3:"GRD",
             name: "Grenada",
         },
         {
             code: "GE",
+            code3:"GEO",
             name: "Georgia",
         },
         {
             code: "GF",
+            code3:"GUF",
             name: "French Guiana",
         },
         {
             code: "GG",
+            code3:"GGY",
             name: "Guernsey",
         },
         {
             code: "GH",
+            code3:"GHA",
             name: "Ghana",
         },
         {
             code: "GI",
+            code3:"GIB",
             name: "Gibraltar",
         },
         {
             code: "GL",
+            code3:"GRL",
             name: "Greenland",
         },
         {
             code: "GM",
+            code3:"GMB",
             name: "Gambia",
         },
         {
             code: "GN",
+            code3:"GIN",
             name: "Guinea",
         },
         {
             code: "GP",
+            code3:"GLP",
             name: "Guadeloupe",
         },
         {
             code: "GQ",
+            code3:"GNQ",
             name: "Equatorial Guinea",
         },
         {
             code: "GR",
+            code3:"GRC",
             name: "Greece",
         },
         {
             code: "GS",
+            code3:"SGS",
             name: "South Georgia and the South Sandwich Islands",
         },
         {
             code: "GT",
+            code3:"GTM",
             name: "Guatemala",
         },
         {
             code: "GU",
+            code3:"GUM",
             name: "Guam",
         },
         {
             code: "GW",
+            code3:"GNB",
             name: "Guinea-Bissau",
         },
         {
             code: "GY",
+            code3:"GUY",
             name: "Guyana",
         },
         {
             code: "HK",
+            code3:"HKG",
             name: "Hong Kong",
         },
         {
             code: "HM",
+            code3:"HMD",
             name: "Heard Island and McDonald Islands",
         },
         {
             code: "HN",
+            code3:"HND",
             name: "Honduras",
         },
         {
             code: "HR",
+            code3:"HRV",
             name: "Croatia",
         },
         {
             code: "HT",
+            code3:"HTI",
             name: "Haiti",
         },
         {
             code: "HU",
+            code3:"HUN",
             name: "Hungary",
         },
         {
             code: "ID",
+            code3:"IDN",
             name: "Indonesia",
         },
         {
             code: "IE",
+            code3:"IRL",
             name: "Ireland",
         },
         {
             code: "IL",
+            code3:"ISR",
             name: "Israel",
         },
         {
             code: "IM",
+            code3:"IMN",
             name: "Isle of Man",
         },
         {
             code: "IN",
+            code3:"IND",
             name: "India",
         },
         {
             code: "IO",
+            code3:"IOT",
             name: "British Indian Ocean Territory",
         },
         {
             code: "IQ",
+            code3:"IRQ",
             name: "Iraq",
         },
         {
             code: "IR",
+            code3:"IRI",
             name: "Iran, Islamic Republic of",
         },
         {
             code: "IS",
+            code3:"ISL",
             name: "Iceland",
         },
         {
             code: "IT",
+            code3:"ITA",
             name: "Italy",
         },
         {
