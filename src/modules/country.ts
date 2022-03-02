@@ -285,78 +285,97 @@ const initialState: CountryState = {
         },
         {
             code: "DE",
+            code3:"DEU",
             name: "Germany",
         },
         {
             code: "DJ",
+            code3:"DJI",
             name: "Djibouti",
         },
         {
             code: "DK",
+            code3:"DNK",
             name: "Denmark",
         },
         {
             code: "DM",
+            code3:"DMA",
             name: "Dominica",
         },
         {
             code: "DO",
+            code3:"DOM",
             name: "Dominican Republic",
         },
         {
             code: "DZ",
+            code3:"DZA",
             name: "Algeria",
         },
         {
             code: "EC",
+            code3:"ECU",
             name: "Ecuador",
         },
         {
             code: "EE",
+            code3:"EST",
             name: "Estonia",
         },
         {
             code: "EG",
+            code3:"EGY",
             name: "Egypt",
         },
         {
             code: "EH",
+            code3:"ESH",
             name: "Western Sahara",
         },
         {
             code: "ER",
+            code3:"ERI",
             name: "Eritrea",
         },
         {
             code: "ES",
+            code3:"ESP",
             name: "Spain",
         },
         {
             code: "ET",
+            code3:"ETH",
             name: "Ethiopia",
         },
         {
             code: "FI",
+            code3:"FIN",
             name: "Finland",
         },
         {
             code: "FJ",
+            code3:"FJI",
             name: "Fiji",
         },
         {
             code: "FK",
+            code3:"FLK",
             name: "Falkland Islands (Malvinas)",
         },
         {
             code: "FM",
+            code3:"FSM",
             name: "Micronesia, Federated States of",
         },
         {
             code: "FO",
+            code3:"FRO",
             name: "Faroe Islands",
         },
         {
             code: "FR",
+            code3:"FRA",
             name: "France",
         },
         {
