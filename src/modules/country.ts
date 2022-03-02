@@ -555,198 +555,247 @@ const initialState: CountryState = {
         },
         {
             code: "JE",
+            code3:"JEY",
             name: "Jersey",
         },
         {
             code: "JM",
+            code3:"JAM",
             name: "Jamaica",
         },
         {
             code: "JO",
+            code3:"JOR",
             name: "Jordan",
         },
         {
             code: "JP",
+            code3:"JPN",
             name: "Japan",
         },
         {
             code: "KE",
+            code3:"KEN",
             name: "Kenya",
         },
         {
             code: "KG",
+            code3:"KGZ",
             name: "Kyrgyzstan",
         },
         {
             code: "KH",
+            code3:"KHM",
             name: "Cambodia",
         },
         {
             code: "KI",
+            code3:"KIR",
             name: "Kiribati",
         },
         {
             code: "KM",
+            code3:"COM",
             name: "Comoros",
         },
         {
             code: "KN",
+            code3:"KNA",
             name: "Saint Kitts and Nevis",
         },
         {
             code: "KP",
+            code3:"PRK",
             name: "Korea, Democratic People's Republic of",
         },
         {
             code: "KR",
+            code3:"ROK",
             name: "Korea, Republic of",
         },
         {
             code: "KW",
+            code3:"KWT",
             name: "Kuwait",
         },
         {
             code: "KY",
+            code3:"CYM",
             name: "Cayman Islands",
         },
         {
             code: "KZ",
+            code3:"KAZ",
             name: "Kazakhstan",
         },
         {
             code: "LA",
+            code3:"LAO",
             name: "Lao People's Democratic Republic",
         },
         {
             code: "LB",
+            code3:"LBN",
             name: "Lebanon",
         },
         {
             code: "LC",
+            code3:"LCA",
             name: "Saint Lucia",
         },
         {
             code: "LI",
+            code3:"LIE",
             name: "Liechtenstein",
         },
         {
             code: "LK",
+            code3:"LKA",
             name: "Sri Lanka",
         },
         {
             code: "LR",
+            code3:"LBR",
             name: "Liberia",
         },
         {
             code: "LS",
+            code3:"LSO",
             name: "Lesotho",
         },
         {
             code: "LT",
+            code3:"LTU",
             name: "Lithuania",
         },
         {
             code: "LU",
+            code3:"LUX",
             name: "Luxembourg",
         },
         {
             code: "LV",
+            code3:"LVA",
             name: "Latvia",
         },
         {
             code: "LY",
+            code3:"LBY",
             name: "Libya",
         },
         {
             code: "MA",
+            code3:"MAR",
             name: "Morocco",
         },
         {
             code: "MC",
+            code3:"MCO",
             name: "Monaco",
         },
         {
             code: "MD",
+            code3:"MDA",
             name: "Moldova, Republic of",
         },
         {
             code: "ME",
+            code3:"MNE",
             name: "Montenegro",
         },
         {
             code: "MF",
+            code3:"MAF",
             name: "Saint Martin (French part)",
         },
         {
             code: "MG",
+            code3:"MDG",
             name: "Madagascar",
         },
         {
             code: "MH",
+            code3:"MHL",
             name: "Marshall Islands",
         },
         {
             code: "MK",
+            code3:"MKD",
             name: "Macedonia, the Former Yugoslav Republic of",
         },
         {
             code: "ML",
+            code3:"MLI",
             name: "Mali",
         },
         {
             code: "MM",
+            code3:"MMR",
             name: "Myanmar",
         },
         {
             code: "MN",
+            code3:"MNG",
             name: "Mongolia",
         },
         {
             code: "MO",
+            code3:"MAC",
             name: "Macao",
         },
         {
             code: "MP",
+            code3:"MNP",
             name: "Northern Mariana Islands",
         },
         {
             code: "MQ",
+            code3:"MTQ",
             name: "Martinique",
         },
         {
             code: "MR",
+            code3:"MRT",
             name: "Mauritania",
         },
         {
             code: "MS",
+            code3:"MSR",
             name: "Montserrat",
         },
         {
             code: "MT",
+            code3:"MLT",
             name: "Malta",
         },
         {
             code: "MU",
+            code3:"MUS",
             name: "Mauritius",
         },
         {
             code: "MV",
+            code3:"MDV",
             name: "Maldives",
         },
         {
             code: "MW",
+            code3:"MWI",
             name: "Malawi",
         },
         {
             code: "MX",
+            code3:"MEX",
             name: "Mexico",
         },
         {
             code: "MY",
+            code3:"MYS",
             name: "Malaysia",
         },
         {
             code: "MZ",
+            code3:"MOZ",
             name: "Mozambique",
         },
         {
