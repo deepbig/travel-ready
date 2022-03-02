@@ -870,86 +870,107 @@ const initialState: CountryState = {
         },
         {
             code: "PE",
+            code3:"PER",
             name: "Peru",
         },
         {
             code: "PF",
+            code3:"PYF",
             name: "French Polynesia",
         },
         {
             code: "PG",
+            code3:"PNG",
             name: "Papua New Guinea",
         },
         {
             code: "PH",
+            code3:"PHL",
             name: "Philippines",
         },
         {
             code: "PK",
+            code3:"PAK",
             name: "Pakistan",
         },
         {
             code: "PL",
+            code3:"POL",
             name: "Poland",
         },
         {
             code: "PM",
+            code3:"SPM",
             name: "Saint Pierre and Miquelon",
         },
         {
             code: "PN",
+            code3:"PCN",
             name: "Pitcairn",
         },
         {
             code: "PR",
+            code3:"PRI",
             name: "Puerto Rico",
         },
         {
             code: "PS",
+            code3:"PSE",
             name: "Palestine, State of",
         },
         {
             code: "PT",
+            code3:"PRT",
             name: "Portugal",
         },
         {
             code: "PW",
+            code3:"PLW",
             name: "Palau",
         },
         {
             code: "PY",
+            code3:"PRY",
             name: "Paraguay",
         },
         {
             code: "QA",
+            code3:"QAT",
             name: "Qatar",
         },
         {
             code: "RE",
+            code3:"REU",
             name: "Reunion",
         },
         {
             code: "RO",
+            code3:"ROU",
             name: "Romania",
         },
         {
             code: "RS",
+            code3:"SRB",
             name: "Serbia",
         },
         {
             code: "RU",
+            code3:"RUS",
             name: "Russian Federation",
         },
         {
             code: "RW",
+            code3:"RWA",
             name: "Rwanda",
         },
         {
             code: "SA",
+            code3:"SAU",
             name: "Saudi Arabia",
         },
         {
             code: "SB",
+            code3:"SLB",
             name: "Solomon Islands",
         },
         {
