@@ -50,21 +50,11 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
   emailValidator = (e) => !!e,
   passwordValidator = (e) => !!e,
 }) => {
-const provider = new GoogleAuthProvider();
-.then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            console.log({ credential, token, user });
-        })
   const [email, setEmail] = React.useState<InitialType>(INITIAL);
   const [password, setPassword] = React.useState(INITIAL);
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = React.useCallback(async () => {
-
     if (
       ![
         checkValid(email, setEmail, emailValidator),
