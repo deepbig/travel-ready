@@ -11,8 +11,20 @@ export type UserData = {
     name: string;
 } | null;
 
+export interface CovidResultData {
+    country: string;
+    confirmed: number;
+    confirmed_daily: number;
+    date: string;
+    deaths: number;
+    deaths_daily: number;
+    population: number
+};
+
+
 export interface CountryData {
     code: string;
+    code3: string;
     name: string;
 }
 
