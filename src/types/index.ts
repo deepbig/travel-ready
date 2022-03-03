@@ -24,7 +24,7 @@ export interface CovidResultData {
 
 export interface CountryData {
     code: string;
-    // code3: string;
+    code3: string;
     name: string;
 }
 

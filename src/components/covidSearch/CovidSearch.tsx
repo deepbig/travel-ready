@@ -52,7 +52,7 @@ function CovidSearch() {
     setBackdrop(true);
     axios
       .get(
-        `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/countries_summary?country=${selected}&min_date=${min_date.toISOString()}&max_date=${max_date.toISOString()}`
+        `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/countries_summary?country_iso3=${selected}&min_date=${min_date.toISOString()}&max_date=${max_date.toISOString()}`
       )
       .then((res: any) => {
         const data: CovidResultData[] = [];
@@ -94,7 +94,7 @@ function CovidSearch() {
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth>
             <Select id='test' value={selected} onChange={handleChange}>
               {countries?.map((c) => (
-                <MenuItem key={c.code} value={c.name}>
+                <MenuItem key={c.code} value={c.code3}>
                   <img
                     loading='lazy'
                     width='20'
