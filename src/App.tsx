@@ -6,6 +6,7 @@ import LandingPage from 'pages/LandingPage';
 import DashboardPage from 'pages/DashboardPage';
 import CovidSearchPage from 'pages/CovidSearchPage';
 import PlacesSearchPage from 'pages/PlacesSearchPage';
+import WelcomePage from 'pages/WelcomePage'
 
 function App() {
   const theme = createTheme({
@@ -29,9 +30,9 @@ function App() {
         <Route path='/dashboard' element={<DashboardPage />} />
         <Route
           path='/covid-19-condition-search'
-          element={<CovidSearchPage />}
-        />
+          element={<CovidSearchPage />} />
         <Route path='/places-search' element={<PlacesSearchPage />} />
+        <Route path='/Welcome' element={<WelcomePage />} />
       </Routes>
     </ThemeProvider>
   );
