@@ -12,15 +12,20 @@ import {
   Grid,
   Typography,
   Paper,
+  CircularProgress,
 } from '@mui/material';
 import axios from 'api/client';
 import Title from 'components/title/Title';
+import { getCovidResult, setCovidResult } from 'modules/covid';
+import { CovidResultData } from 'types';
+import CovidSearchResult from './CovidSearchResult';
 
 function CovidSearch() {
   const countries = useAppSelector(getCountries);
+  const covidResult = useAppSelector(getCovidResult);
   const dispatch = useAppDispatch();
   const [selected, setSelected] = useState('');
-  const [covidData, setCovidData] = useState([]);
+  const [backdrop, setBackdrop] = useState(false);
 
   useEffect(() => {
     if (!countries?.length) {
@@ -44,15 +49,31 @@ function CovidSearch() {
   const getSearchResult = () => {
     const max_date = new Date();
     const min_date = new Date(new Date().setDate(new Date().getDate() - 8));
+    setBackdrop(true);
     axios
       .get(
-        `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/countries_summary?country=${selected}&min_date=${min_date.toISOString()}&max_date=${max_date.toISOString()}`
+        `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/countries_summary?country_iso3=${selected}&min_date=${min_date.toISOString()}&max_date=${max_date.toISOString()}`
       )
       .then((res: any) => {
-        console.log(res);
-        alert('check console to check result');
-        setCovidData(res.data);
-        console.log(covidData);
+        const data: CovidResultData[] = [];
+
+        res.data?.forEach((_data: any) => {
+          const result: CovidResultData = {
+            country: _data.country,
+            confirmed: _data.confirmed,
+            confirmed_daily: _data.confirmed_daily,
+            date: new Date(_data.date).toISOString().split('T')[0],
+            deaths: _data.deaths,
+            deaths_daily: _data.deaths_daily,
+            population: _data.population,
+          };
+          data.push(result);
+        });
+
+        dispatch(setCovidResult(data));
+      })
+      .finally(() => {
+        setBackdrop(false);
       });
   };
 
@@ -73,7 +94,7 @@ function CovidSearch() {
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth>
             <Select id='test' value={selected} onChange={handleChange}>
               {countries?.map((c) => (
-                <MenuItem key={c.code} value={c.name}>
+                <MenuItem key={c.code} value={c.code3}>
                   <img
                     loading='lazy'
                     width='20'
@@ -108,8 +129,18 @@ function CovidSearch() {
             elevation={4}
           >
             <Title>COVID-19 Condition</Title>
-            <Box m={2}>
-              {selected ? null : (
+            <Box display='flex' justifyContent='center' m={2}>
+              {backdrop ? (
+                <CircularProgress color='inherit' />
+              ) : selected ? (
+                covidResult.length <= 0 ? (
+                  <Typography variant='guideline' align='center'>
+                    Selected countries does not have COVID-19 data.
+                  </Typography>
+                ) : (
+                  <CovidSearchResult />
+                )
+              ) : (
                 <Typography variant='guideline' align='center'>
                   Please select a country to show result!
                 </Typography>
