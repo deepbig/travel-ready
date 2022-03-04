@@ -26,7 +26,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
 }) => {
   const [email, setEmail] = useState(INITIAL);
    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = (event: any) => {

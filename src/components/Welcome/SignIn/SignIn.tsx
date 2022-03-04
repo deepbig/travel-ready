@@ -46,8 +46,8 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
 }) => {
 
   const [email, setEmail] = useState<InitialType>(INITIAL);
-  const [password, setPassword] = React.useState(INITIAL);
-  const [loading, setLoading] = React.useState(false);
+  const [password, setPassword] = useState(INITIAL);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit =  (event: any) => {
