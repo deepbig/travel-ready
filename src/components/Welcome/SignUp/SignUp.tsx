@@ -3,25 +3,15 @@ import FormControl from "@material-ui/core/FormControl";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import PasswordField from "Welcome/Fields/PasswordField";
-import NameField from "Welcome/Fields/NameField";
-import EmailField from "Welcome/Fields/EmailField";
+import PasswordField from "components/Welcome/Fields/PasswordField";
+import NameField from "components/Welcome/Fields/NameField";
+import EmailField from "components/Welcome/Fields/EmailField";
 import checkValid from "util/CheckValid";
-import { GoogleAuthProvider } from "firebase/auth";
+import {Link} from '@reach/router';
+import { signInWithGoogle } from 'db/index';
+import {auth, generateUserDocument} from 'db/index';
+import {SignUpProps} from 'types';
 
-
-
-export interface SignUpProps {
-  handleSignUp: (signUpVars: {
-    name: string;
-    email: string;
-    password: string;
-  }) => any;
-  hideTabs?: boolean;
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  emailValidator?: (value: string) => boolean;
-  passwordValidator?: (value: string) => boolean;
-}
 
 interface NaviProps {
   gobackToSignIn: () => any;
@@ -37,30 +27,36 @@ const SignUp: React.FC<SignUpProps & NaviProps> = ({
   emailValidator = (e) => !!e,
   passwordValidator = (e) => !!e,
 }) => {
-  const [name, setName] = React.useState(INITIAL);
-  const [email, setEmail] = React.useState(INITIAL);
-  const [loading, setLoading] = React.useState(false);
-  const [password, setPassword] = React.useState(INITIAL);
+  const [name, setName] = useState(INITIAL);
+  const [email, setEmail] = useState(INITIAL);
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState(INITIAL);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = React.useCallback(async () => {
-    if (
-      ![
-        checkValid(name, setName, emailValidator),
-        checkValid(email, setEmail, emailValidator),
-        checkValid(password, setPassword, passwordValidator),
-      ].every((v) => v)
-    )
-      return;
-    if (typeof handleSignUp !== "function") handleSignUp = () => {};
-
-    setLoading(true);
-
-    return handleSignUp({
-      name: name.text,
-      email: email.text,
-      password: password.text,
-    });
-  }, []);
+  const handleSubmit = async (event: any, email: any, password: any) =>{
+                               event.preventDefault();
+                               try{
+                                   const {user} = await auth.createUserWithEmailAndPassword(email, password);
+                                   generateUserDocument(user, {displayName});
+                                   alert('Registration successfull')
+                                 }
+                                 catch(error){
+                                   // setError('Error Signing up with email and password');
+                                 }
+                               setEmail('');
+                               setPassword('');
+                               setDisplayName('');
+                           }
+     const onChangeHandler = (event: any) => {
+             const { name, value } = event.currentTarget;
+             if (name === "userEmail") {
+               setEmail(value);
+             } else if (name === "userPassword") {
+               setPassword(value);
+             } else if (name === "displayName") {
+               setDisplayName(value);
+             }
+           };
 
   return (
     <Box p={2}>

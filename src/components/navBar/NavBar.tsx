@@ -125,7 +125,8 @@ const Drawer = styled(MuiDrawer, {
 
 export default function NavBar({ selectedName }: { selectedName: string }) {
   const [open, setOpen] = useState(false);
-
+/**declaration of router that will navigate to login page**/
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -168,7 +169,10 @@ export default function NavBar({ selectedName }: { selectedName: string }) {
               <Avatar alt='Anonymous' src='/anonymous_user_avatar.png' />
             </IconButton>
           ) : (
-            <Button variant='outlined' color='inherit'>
+            <Button variant='outlined' color='inherit'
+             /**once button is clicked routes to log in page**/
+                        onClick={() => navigate(`/LoginPage`)}>
+
               Sign In
             </Button>
           )}

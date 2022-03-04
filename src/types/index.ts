@@ -44,3 +44,37 @@ declare module '@mui/material/Typography' {
         guideline: true;
     }
 }
+
+export interface SignInProps {
+  handleSignIn: (signInVars: { email: string; password: string }) => any;
+  hideTabs?: boolean;
+  handleSocial: {
+    Google?: () => void;
+  };
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+  passwordValidator?: (value: string) => boolean;
+}
+
+export interface SignUpProps {
+  handleSignUp: (signUpVars: {
+    name: string;
+    email: string;
+    password: string;
+  }) => any;
+  hideTabs?: boolean;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+  passwordValidator?: (value: string) => boolean;
+}
+
+export interface ForgetProps {
+  handleForget: (forgetVars: { email: string }) => any;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+}
+
+
+
+
+export { default as WelcomePage } from "pages/WelcomePage";

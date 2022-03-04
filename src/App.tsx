@@ -7,6 +7,7 @@ import DashboardPage from 'pages/DashboardPage';
 import CovidSearchPage from 'pages/CovidSearchPage';
 import PlacesSearchPage from 'pages/PlacesSearchPage';
 import WelcomePage from 'pages/WelcomePage'
+import UserProvider from "./providers/UserProvider";
 
 function App() {
   const theme = createTheme({
@@ -24,6 +25,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <UserProvider>
       <Routes>
         <Route path='/' element={<Navigate to='/landing' />} />
         <Route path='/landing' element={<LandingPage />} />
@@ -34,6 +36,7 @@ function App() {
         <Route path='/places-search' element={<PlacesSearchPage />} />
         <Route path='/Welcome' element={<WelcomePage />} />
       </Routes>
+      </UserProvider>
     </ThemeProvider>
   );
 }

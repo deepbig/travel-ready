@@ -4,10 +4,14 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import EmailField from "Welcome/Fields/EmailField";
-import PasswordField from "Welcome/Fields/PasswordField";
+import EmailField from "components/Welcome/Fields/EmailField";
+import PasswordField from "components/Welcome/Fields/PasswordField";
 import checkValid from "util/checkvalid";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {Link} from '@reach/router';
+import {auth, signInWithGoogle} from "db/index";
+import DashboardPage from 'pages/DashboardPage';
+import {SignInProps} from 'types';
+
 
 type InitialType = { text: string; error: string };
 
@@ -23,16 +27,7 @@ const Social = {
   },
 };
 
-export interface SignInProps {
-  handleSignIn: (signInVars: { email: string; password: string }) => any;
-  hideTabs?: boolean;
-  handleSocial: {
-    Google?: () => void;
-  };
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  emailValidator?: (value: string) => boolean;
-  passwordValidator?: (value: string) => boolean;
-}
+
 interface NaviProps {
   goToForget: () => any;
   goToSignUp: () => any;
@@ -50,23 +45,33 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
   emailValidator = (e) => !!e,
   passwordValidator = (e) => !!e,
 }) => {
-  const [email, setEmail] = React.useState<InitialType>(INITIAL);
+
+  const [email, setEmail] = useState<InitialType>(INITIAL);
   const [password, setPassword] = React.useState(INITIAL);
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = React.useCallback(async () => {
-    if (
-      ![
-        checkValid(email, setEmail, emailValidator),
-        checkValid(password, setPassword, passwordValidator),
-      ].every((v) => v)
-    )
-      return;
-    setLoading(true);
-    if (typeof handleSignIn !== "function") handleSignIn = () => {};
-    await handleSignIn({ email: email.text, password: password.text });
-    setLoading(false);
-  }, [email, password]);
+  const handleSubmit =  (event: any) => {
+                               const {name, value} = event.currentTarget;
+
+                               if(name === 'userEmail')
+                                   setEmail(value);
+                               else if(name === 'userPassword')
+                                   setPassword(value);
+                           }
+       const signInWithEmailAndPasswordHandler = (event :any, email: any, password: any) => {
+             event.preventDefault();
+             auth.signInWithEmailAndPassword(email, password)
+             .then(res =>{
+                 alert('Success')
+             })
+             .catch(error => {
+                 // setError("Error signing in with password and email!");
+                 console.error("Error signing in with password and email", error);
+                 console.log(email,password)
+                 alert('Failure')
+               });
+         }
 
   return (
     <Box p={2}>

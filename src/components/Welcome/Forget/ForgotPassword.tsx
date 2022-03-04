@@ -4,15 +4,15 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import BackIcon from "@material-ui/icons/ArrowBackOutlined";
-import EmailField from "Welcome/Fields/EmailField";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import EmailField from "components/Welcome/Fields/EmailField";
 import checkValid from "util/CheckValid";
+import { Link } from '@reach/router';
+import { auth } from 'db/index';
+import {ForgetProps} from 'types';
 
-export interface ForgetProps {
-  handleForget: (forgetVars: { email: string }) => any;
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  emailValidator?: (value: string) => boolean;
-}
+
+
 interface NaviProps {
   gobackToSignIn: () => any;
 }
@@ -25,19 +25,35 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
   textFieldVariant = "filled",
   emailValidator = (e) => !!e,
 }) => {
-  const [email, setEmail] = React.useState(INITIAL);
+  const [email, setEmail] = useState(INITIAL);
+   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = React.useCallback(async () => {
-    if (!checkValid(email, setEmail, emailValidator)) return;
-    if (typeof handleForget !== "function") handleForget = () => {};
-    setLoading(true);
-    return handleForget({ email: email.text });
-  }, []);
+  const handleSubmit = (event: any) => {
+   const { name, value } = event.currentTarget;
+           if (name === "userEmail") {
+             setEmail(value);
+           }
+         };
+
+ handleForget = (event: any) => {
+        event.preventDefault();
+        auth
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          setEmailHasBeenSent(true);
+          setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
+        })
+        .catch(() => {
+        //   setError("Error resetting password");
+        console.log('Error resetting password')
+        });
+    };
   return (
     <>
       <IconButton aria-label="go back" onClick={gobackToSignIn}>
-        <BackIcon color="action" />
+        <ArrowBackOutlinedIcon color="action" />
       </IconButton>
       <Box p={2} pb={6}>
         <Typography variant="h6" color="textSecondary" align="center">

@@ -2,9 +2,9 @@ import * as React from "react";
 import Box from "@material-ui/core/Box";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import SignIn, { SignInProps } from "Welcome/SignIn/SignIn";
-import SignUp, { SignUpProps } from "Welcome/SignUp/SignUp";
-import Forget, { ForgetProps } from "Welcome/Forget/ForgotPassword";
+import SignIn, { SignInProps } from "components/Welcome/SignIn/SignIn";
+import SignUp, { SignUpProps } from "components/Welcome/SignUp/SignUp";
+import Forget, { ForgetProps } from "components/Welcome/Forget/ForgotPassword";
 import Typography from "@material-ui/core/Typography";
 
 export interface AuthProps extends SignInProps, SignUpProps, ForgetProps {
