@@ -64,10 +64,10 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
              .then(() =>{
                  alert('Success')
              })
-             .catch(error => {
-                 // setError("Error signing in with password and email!");
+             .catch(function (error) => {
+                // Handle Errors here
                  console.error("Error signing in with password and email", error);
-                 console.log(email,password)
+                 console.log(email, password)
                  alert('Failure')
                });
          }
