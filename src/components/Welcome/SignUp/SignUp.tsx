@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import PasswordField from "components/Welcome/Fields/PasswordField";
 import NameField from "components/Welcome/Fields/NameField";
 import EmailField from "components/Welcome/Fields/EmailField";
-import checkValid from "util/CheckValid";
 import {Link} from '@reach/router';
 import { signInWithGoogle } from 'db/index';
 import {auth, generateUserDocument} from 'db/index';

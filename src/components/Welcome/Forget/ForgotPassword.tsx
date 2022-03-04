@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import EmailField from "components/Welcome/Fields/EmailField";
-import checkValid from "util/CheckValid";
 import { Link } from '@reach/router';
 import { auth } from 'db/index';
 import {ForgetProps} from 'types';

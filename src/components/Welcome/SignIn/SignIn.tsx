@@ -6,7 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import EmailField from "components/Welcome/Fields/EmailField";
 import PasswordField from "components/Welcome/Fields/PasswordField";
-import checkValid from "util/checkvalid";
 import {Link} from '@reach/router';
 import {auth, signInWithGoogle} from "db/index";
 import DashboardPage from 'pages/DashboardPage';
