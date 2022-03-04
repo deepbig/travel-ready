@@ -1,6 +1,6 @@
 export enum PageName {
     LANDING = '',
-    WELCOME = 'Welcome',
+    SIGIN = '',
     DASHBOARD = 'Dashboard',
     COVID_19_CONDITION_SEARCH = 'COVID-19 Condition Search',
     PLACES_BY_INTEREST_SEARCH = 'Places Search By Interests',
