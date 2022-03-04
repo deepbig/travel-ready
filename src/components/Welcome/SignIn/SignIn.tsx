@@ -61,9 +61,9 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
        const signInWithEmailAndPasswordHandler = (event :any, email: any, password: any) => {
              event.preventDefault();
              auth.signInWithEmailAndPassword(email, password)
-             .then(res =>{
+             .then(res: any) =>{
                  alert('Success')
-             })
+             }
              .catch(error => {
                  // setError("Error signing in with password and email!");
                  console.error("Error signing in with password and email", error);
