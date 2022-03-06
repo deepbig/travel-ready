@@ -9,6 +9,9 @@ import EmailField from "components/Welcome/Fields/EmailField";
 import { Link } from '@reach/router';
 import { auth } from 'db/index';
 import {ForgetProps} from 'types';
+import {EmailFieldProps} from 'types';
+import {NameFieldProps} from 'types';
+import {PasswordFieldProps} from 'types';
 
 
 

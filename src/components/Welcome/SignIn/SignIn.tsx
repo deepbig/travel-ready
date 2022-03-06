@@ -10,6 +10,9 @@ import {Link} from '@reach/router';
 import {auth, signInWithGoogle} from "db/index";
 import DashboardPage from 'pages/DashboardPage';
 import {SignInProps} from 'types';
+import {EmailFieldProps} from 'types';
+import {NameFieldProps} from 'types';
+import {PasswordFieldProps} from 'types';
 
 
 

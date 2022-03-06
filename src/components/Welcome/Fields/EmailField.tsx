@@ -4,13 +4,15 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import {EmailFieldProps} from 'types';
 
-export interface EmailFieldProps {
+
+/*export interface EmailFieldProps {
   email: { text: string; err: string };
   setEmail: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
-}
+}*/
 
 const EmailField: React.FC<EmailFieldProps> = ({
   email,

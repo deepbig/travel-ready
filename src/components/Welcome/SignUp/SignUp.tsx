@@ -10,6 +10,9 @@ import {Link} from '@reach/router';
 import { signInWithGoogle } from 'db/index';
 import {auth, generateUserDocument} from 'db/index';
 import {SignUpProps} from 'types';
+import {EmailFieldProps} from 'types';
+import {NameFieldProps} from 'types';
+import {PasswordFieldProps} from 'types';
 
 
 interface NaviProps {

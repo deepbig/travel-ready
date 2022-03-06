@@ -74,6 +74,26 @@ export interface ForgetProps {
   emailValidator?: (value: string) => boolean;
 }
 
+export interface NameFieldProps {
+  name: { text: string; err: string };
+  setName: (props: { text: string; err: string }) => void;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  loading: boolean;
+}
+
+export interface EmailFieldProps {
+  email: { text: string; err: string };
+  setEmail: (props: { text: string; err: string }) => void;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  loading: boolean;
+}
+
+export interface PasswordFieldProps {
+  password: { text: string; err: string };
+  setPassword: (props: { text: string; err: string }) => void;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  loading: boolean;
+}
 
 
 
