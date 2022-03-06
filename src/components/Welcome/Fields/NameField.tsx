@@ -20,11 +20,14 @@ const NameField: React.FC<NameFieldProps> = ({
   loading,
 }) => {
   return (
-    <FormControl margin="none" fullWidth err={Boolean(name?.err)}>
+    <FormControl
+    margin="none"
+    fullWidth
+    error={Boolean(name?.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Name" : ""}
         label={textFieldVariant !== "outlined" && "Name"}
-        err={Boolean(name?.err)}
+        error={Boolean(name?.err)}
         variant={textFieldVariant}
         value={name?.text}
         disabled={loading}

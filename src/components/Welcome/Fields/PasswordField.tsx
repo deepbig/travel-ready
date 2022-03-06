@@ -27,11 +27,14 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
     setShowPassword(!showPassword);
   };
   return (
-    <FormControl margin="none" fullWidth err={Boolean(password.err)}>
+    <FormControl
+    margin="none"
+    fullWidth
+    error={Boolean(password.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Password" : ""}
         label={textFieldVariant !== "outlined" && "Password"}
-        err={Boolean(password.err)}
+        error={Boolean(password.err)}
         variant={textFieldVariant}
         value={password.text}
         disabled={loading}

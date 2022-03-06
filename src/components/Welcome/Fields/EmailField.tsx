@@ -19,11 +19,14 @@ const EmailField: React.FC<EmailFieldProps> = ({
   loading,
 }) => {
   return (
-    <FormControl margin="none" fullWidth err={Boolean(email.err)}>
+    <FormControl
+    fullWidth
+    margin="none"
+    error={Boolean(email.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Email" : ""}
         label={textFieldVariant !== "outlined" && "Email"}
-        err={Boolean(email.err)}
+        error={Boolean(email.err)}
         variant={textFieldVariant}
         value={email.text}
         disabled={loading}
