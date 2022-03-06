@@ -64,7 +64,7 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
              .then(() =>{
                  alert('Success')
              })
-             .catch(error => {
+             .catch(error: any => {
                  if (error.code === 'auth/email-already-in-use') {
                    console.log('That email address is already in use!');
                  }
