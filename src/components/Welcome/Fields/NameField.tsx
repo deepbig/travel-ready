@@ -47,4 +47,4 @@ const NameField: React.FC<NameFieldProps> = ({
     </FormControl>
   );
 };
-export default React.memo(NameField);
+export default NameField;

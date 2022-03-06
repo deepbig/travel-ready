@@ -66,4 +66,4 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
     </FormControl>
   );
 };
-export default React.memo(PasswordField);
+export default PasswordField;

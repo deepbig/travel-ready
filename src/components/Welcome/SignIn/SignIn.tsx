@@ -78,7 +78,7 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
 
   return (
     <Box p={2}>
-<EmailField {...{ email, setEmail, textFieldVariant, loading }} />
+      <EmailField {...{ email, setEmail, textFieldVariant, loading }} />
       <PasswordField
         {...{ password, setPassword, textFieldVariant, loading }}/>
       <Typography

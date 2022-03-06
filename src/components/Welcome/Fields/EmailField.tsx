@@ -46,4 +46,4 @@ const EmailField: React.FC<EmailFieldProps> = ({
     </FormControl>
   );
 };
-export default React.memo(EmailField);
+export default EmailField;
