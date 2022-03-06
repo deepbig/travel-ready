@@ -12,18 +12,18 @@ import DashboardPage from 'pages/DashboardPage';
 import {SignInProps} from 'types';
 
 
-type InitialType = { text: string; error: string };
+
+//type InitialType = { text: string; error: string };
 
 const Social = {
   Google: {
-    color: "red",
-    icon: () => (
+    icon: () => ({
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png"
         width={20}
         height={20} />
-    ),
-  },
+     ),
+  }),
 };
 
 
@@ -32,7 +32,7 @@ interface NaviProps {
   goToSignUp: () => any;
 }
 
-const INITIAL: InitialType = { text: "", error: "" };
+//const INITIAL: InitialType = { text: "", error: "" };
 
 const SignIn: React.FC<SignInProps & NaviProps> = ({
   goToForget,
@@ -45,8 +45,8 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
   passwordValidator = (e) => !!e,
 }) => {
 
-  const [email, setEmail] = useState<InitialType>(INITIAL);
-  const [password, setPassword] = useState(INITIAL);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -64,7 +64,7 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
              .then(() =>{
                  alert('Success')
              })
-             .catch(error: any => {
+             .catch(error => {
                  if (error.code === 'auth/email-already-in-use') {
                    console.log('That email address is already in use!');
                  }

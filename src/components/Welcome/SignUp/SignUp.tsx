@@ -16,7 +16,7 @@ interface NaviProps {
   gobackToSignIn: () => any;
 }
 
-const INITIAL = { text: "", error: "" };
+//const INITIAL = { text: "", error: "" };
 
 const SignUp: React.FC<SignUpProps & NaviProps> = ({
   handleSignUp,
@@ -26,10 +26,10 @@ const SignUp: React.FC<SignUpProps & NaviProps> = ({
   emailValidator = (e) => !!e,
   passwordValidator = (e) => !!e,
 }) => {
-  const [name, setName] = useState(INITIAL);
-  const [email, setEmail] = useState(INITIAL);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState(INITIAL);
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
   const handleSubmit = async (event: any, email: any, password: any) =>{

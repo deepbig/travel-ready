@@ -16,7 +16,7 @@ interface NaviProps {
   gobackToSignIn: () => any;
 }
 
-const INITIAL = { text: "", error: "" };
+//const INITIAL = { text: "", error: "" };
 
 const Forget: React.FC<ForgetProps & NaviProps> = ({
   gobackToSignIn,
@@ -24,7 +24,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
   textFieldVariant = "filled",
   emailValidator = (e) => !!e,
 }) => {
-  const [email, setEmail] = useState(INITIAL);
+  const [email, setEmail] = useState('');
    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
