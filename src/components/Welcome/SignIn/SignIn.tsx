@@ -78,10 +78,9 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
 
   return (
     <Box p={2}>
-      <EmailField {...{ email, setEmail, textFieldVariant, loading }} />
+<EmailField {...{ email, setEmail, textFieldVariant, loading }} />
       <PasswordField
-        {...{ password, setPassword, textFieldVariant, loading }} />
-
+        {...{ password, setPassword, textFieldVariant, loading }}/>
       <Typography
         variant="body2"
         color="textSecondary"
@@ -122,9 +121,9 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
             <IconButton
               key={key}
               aria-label={`${key} login button`}
-              onClick={handler}>
+              onClick={()=> signInWithGoogle()}>
               {React.createElement(Social[key].icon, {
-                htmlColor: Social[key].color,
+                //htmlColor: Social[key].color,
               })}
             </IconButton>
           );

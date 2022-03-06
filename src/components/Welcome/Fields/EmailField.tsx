@@ -6,8 +6,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 export interface EmailFieldProps {
-  email: { text: string; error: string };
-  setEmail: (props: { text: string; error: string }) => void;
+  email: { text: string; err: string };
+  setEmail: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
 }
@@ -19,27 +19,27 @@ const EmailField: React.FC<EmailFieldProps> = ({
   loading,
 }) => {
   return (
-    <FormControl margin="none" fullWidth error={Boolean(email.error)}>
+    <FormControl margin="none" fullWidth err={Boolean(email.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Email" : ""}
         label={textFieldVariant !== "outlined" && "Email"}
-        error={Boolean(email.error)}
+        err={Boolean(email.err)}
         variant={textFieldVariant}
         value={email.text}
         disabled={loading}
         onChange={(e) => {
-          setEmail({ text: e.target.value, error: "" });
+          setEmail({ text: e.target.value, err: "" });
         }}
         type={"email"}
         InputProps={{
           startAdornment: textFieldVariant === "outlined" && (
             <InputAdornment position="start">
-              <EmailOutlinedIcon color={email.error ? "error" : "action"} />
+              <EmailOutlinedIcon color={email.err ? "error" : "action"} />
             </InputAdornment>
           ),
         }}
       />
-      <FormHelperText>{email.error || " "}</FormHelperText>
+      <FormHelperText>{email.err || " "}</FormHelperText>
     </FormControl>
   );
 };

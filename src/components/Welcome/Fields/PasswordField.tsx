@@ -9,8 +9,8 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 export interface PasswordFieldProps {
-  password: { text: string; error: string };
-  setPassword: (props: { text: string; error: string }) => void;
+  password: { text: string; err: string };
+  setPassword: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
 }
@@ -21,28 +21,28 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
   textFieldVariant = "filled",
   loading,
 }) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const tooglePassword = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <FormControl margin="none" fullWidth error={Boolean(password.error)}>
+    <FormControl margin="none" fullWidth err={Boolean(password.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Password" : ""}
         label={textFieldVariant !== "outlined" && "Password"}
-        error={Boolean(password.error)}
+        err={Boolean(password.err)}
         variant={textFieldVariant}
         value={password.text}
         disabled={loading}
         onChange={(e) => {
-          setPassword({ text: e.target.value, error: "" });
+          setPassword({ text: e.target.value, err: "" });
         }}
         type={!showPassword ? "password" : "text"}
         InputProps={{
           startAdornment: textFieldVariant === "outlined" && (
             <InputAdornment position="start">
-              <LockOpenOutlinedIcon color={password.error ? "error" : "action"} />
+              <LockOpenOutlinedIcon color={password.err ? "error" : "action"} />
             </InputAdornment>
           ),
           endAdornment: (
@@ -51,14 +51,14 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
                 {React.createElement(
                   !showPassword ? VisibilityOffOutlinedIcon : VisibilityOutlinedIcon ,
                   {
-                    color: password.error ? "error" : "action", }
+                    color: password.err ? "error" : "action", }
                 )}
               </IconButton>
             </InputAdornment>
           ),
         }}
         />
-      <FormHelperText>{password.error || " "}
+      <FormHelperText>{password.err || " "}
       </FormHelperText>
     </FormControl>
   );

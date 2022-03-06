@@ -7,8 +7,8 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 
 
 export interface NameFieldProps {
-  name: { text: string; error: string };
-  setName: (props: { text: string; error: string }) => void;
+  name: { text: string; err: string };
+  setName: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
 }
@@ -20,27 +20,27 @@ const NameField: React.FC<NameFieldProps> = ({
   loading,
 }) => {
   return (
-    <FormControl margin="none" fullWidth error={Boolean(name?.error)}>
+    <FormControl margin="none" fullWidth err={Boolean(name?.err)}>
       <TextField
         placeholder={textFieldVariant === "outlined" ? "Name" : ""}
         label={textFieldVariant !== "outlined" && "Name"}
-        error={Boolean(name?.error)}
+        err={Boolean(name?.err)}
         variant={textFieldVariant}
         value={name?.text}
         disabled={loading}
         onChange={(e) => {
-          setName({ text: e.target.value, error: "" });
+          setName({ text: e.target.value, err: "" });
         }}
         type={"name"}
         InputProps={{
           startAdornment: textFieldVariant === "outlined" && (
             <InputAdornment position="start">
-              <AccountBoxOutlinedIcon color={name?.error ? "error" : "action"} />
+              <AccountBoxOutlinedIcon color={name?.err ? "error" : "action"} />
             </InputAdornment>
           ),
         }}
       />
-      <FormHelperText>{name?.error || " "}</FormHelperText>
+      <FormHelperText>{name?.err || " "}</FormHelperText>
     </FormControl>
   );
 };
