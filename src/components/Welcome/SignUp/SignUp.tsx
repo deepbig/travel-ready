@@ -9,15 +9,25 @@ import EmailField from "components/Welcome/Fields/EmailField";
 import {Link} from '@reach/router';
 import { signInWithGoogle } from 'db/index';
 import {auth, generateUserDocument} from 'db/index';
-import {SignUpProps} from 'types';
-import {EmailFieldProps} from 'types';
-import {NameFieldProps} from 'types';
-import {PasswordFieldProps} from 'types';
 
+const INITIAL = { text: "", err: "" };
 
 interface NaviProps {
   gobackToSignIn: () => any;
 }
+
+export interface SignUpProps {
+  handleSignUp: (signUpVars: {
+    name: string;
+    email: string;
+    password: string;
+  }) => any;
+  hideTabs?: boolean;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+  passwordValidator?: (value: string) => boolean;
+}
+
 
 //const INITIAL = { text: "", error: "" };
 
@@ -29,25 +39,27 @@ const SignUp: React.FC<SignUpProps & NaviProps> = ({
   emailValidator = (e) => !!e,
   passwordValidator = (e) => !!e,
 }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = React.useState(INITIAL);
+   const [email, setEmail] = React.useState(INITIAL);
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState('');
+ const [password, setPassword] = React.useState(INITIAL);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (event: any, email: any, password: any) =>{
+  const handleSubmit = async(event :any,
+                                   email:{ text: string; err: string } ,
+                                   password: { text: string; err: string }) =>{
                                event.preventDefault();
                                try{
-                                   const {user} = await auth.createUserWithEmailAndPassword(email, password);
-                                   generateUserDocument(user, {displayName});
+                                   const {user} = await auth.createUserWithEmailAndPassword(email.text, password.text);
+                                   generateUserDocument(user, {name});
                                    alert('Registration successfull')
                                  }
                                  catch(error){
                                    // setError('Error Signing up with email and password');
                                  }
-                               setEmail('');
-                               setPassword('');
-                               setDisplayName('');
+                               setEmail(INITIAL);
+                               setPassword(INITIAL);
+                               setName(INITIAL);
                            }
      const onChangeHandler = (event: any) => {
              const { name, value } = event.currentTarget;
@@ -55,8 +67,8 @@ const SignUp: React.FC<SignUpProps & NaviProps> = ({
                setEmail(value);
              } else if (name === "userPassword") {
                setPassword(value);
-             } else if (name === "displayName") {
-               setDisplayName(value);
+             } else if (name === "Name") {
+               setName(value);
              }
            };
 

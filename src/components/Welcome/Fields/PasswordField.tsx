@@ -7,14 +7,14 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import {PasswordFieldProps} from 'types';
+//import {PasswordFieldProps} from 'types';
 
-/*export interface PasswordFieldProps {
+export interface PasswordFieldProps {
   password: { text: string; err: string };
   setPassword: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
-}*/
+}
 
 const PasswordField: React.FC<PasswordFieldProps> = ({
   password,

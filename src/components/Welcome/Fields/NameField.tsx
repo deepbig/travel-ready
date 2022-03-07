@@ -4,16 +4,16 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import {NameFieldProps} from 'types';
+//import {NameFieldProps} from 'types';
 
 
 
-/*export interface NameFieldProps {
+export interface NameFieldProps {
   name: { text: string; err: string };
   setName: (props: { text: string; err: string }) => void;
   textFieldVariant?: "outlined" | "filled" | "standard";
   loading: boolean;
-}*/
+}
 
 const NameField: React.FC<NameFieldProps> = ({
   name,

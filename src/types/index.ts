@@ -1,6 +1,6 @@
 export enum PageName {
     LANDING = '',
-    WELCOME = 'Welcome',
+    WELCOME = 'WelcomePage',
     DASHBOARD = 'Dashboard',
     COVID_19_CONDITION_SEARCH = 'COVID-19 Condition Search',
     PLACES_BY_INTEREST_SEARCH = 'Places Search By Interests',
@@ -45,7 +45,7 @@ declare module '@mui/material/Typography' {
     }
 }
 
-export interface SignInProps {
+/*export interface SignInProps {
   handleSignIn: (signInVars: { email: string; password: string }) => any;
   hideTabs?: boolean;
   handleSocial: {
@@ -55,7 +55,6 @@ export interface SignInProps {
   emailValidator?: (value: string) => boolean;
   passwordValidator?: (value: string) => boolean;
 }
-
 export interface SignUpProps {
   handleSignUp: (signUpVars: {
     name: string;
@@ -72,29 +71,7 @@ export interface ForgetProps {
   handleForget: (forgetVars: { email: string }) => any;
   textFieldVariant?: "outlined" | "filled" | "standard";
   emailValidator?: (value: string) => boolean;
-}
-
-export interface NameFieldProps {
-  name: { text: string; err: string };
-  setName: (props: { text: string; err: string }) => void;
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  loading: boolean;
-}
-
-export interface EmailFieldProps {
-  email: { text: string; err: string };
-  setEmail: (props: { text: string; err: string }) => void;
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  loading: boolean;
-}
-
-export interface PasswordFieldProps {
-  password: { text: string; err: string };
-  setPassword: (props: { text: string; err: string }) => void;
-  textFieldVariant?: "outlined" | "filled" | "standard";
-  loading: boolean;
-}
+}*/
 
 
 
-export { default as WelcomePage } from "pages/WelcomePage";

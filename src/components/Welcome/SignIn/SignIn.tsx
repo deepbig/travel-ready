@@ -9,33 +9,36 @@ import PasswordField from "components/Welcome/Fields/PasswordField";
 import {Link} from '@reach/router';
 import {auth, signInWithGoogle} from "db/index";
 import DashboardPage from 'pages/DashboardPage';
-import {SignInProps} from 'types';
-import {EmailFieldProps} from 'types';
-import {NameFieldProps} from 'types';
-import {PasswordFieldProps} from 'types';
 
+type InitialType = { text: string; err: string };
+const INITIAL: InitialType = { text: "", err: "" };
 
-
-//type InitialType = { text: string; error: string };
-
-const Social = {
-  Google: {
+const Google = {
     icon: () => (
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png"
         width={20}
         height={20} />
      ),
-  },
 };
 
+
+export interface SignInProps {
+  handleSignIn: (signInVars: { email: string; password: string }) => any;
+  hideTabs?: boolean;
+  handleSocial: {
+    Google?: () => void;
+  };
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+  passwordValidator?: (value: string) => boolean;
+}
 
 interface NaviProps {
   goToForget: () => any;
   goToSignUp: () => any;
 }
 
-//const INITIAL: InitialType = { text: "", error: "" };
 
 const SignIn: React.FC<SignInProps & NaviProps> = ({
   goToForget,
@@ -48,10 +51,12 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
   passwordValidator = (e) => !!e,
 }) => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] =useState<InitialType>(INITIAL);
+  const [password, setPassword] = useState(INITIAL);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+
 
   const handleSubmit =  (event: any) => {
                                const {name, value} = event.currentTarget;
@@ -61,13 +66,15 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
                                else if(name === 'userPassword')
                                    setPassword(value);
                            }
-       const signInWithEmailAndPasswordHandler = (event :any, email: any, password: any) => {
+
+       const signInWithEmailAndPasswordHandler = (event :any,
+       email:{ text: string; err: string } , password: { text: string; err: string }) => {
              event.preventDefault();
-             auth.signInWithEmailAndPassword(email, password)
+             auth.signInWithEmailAndPassword(email.text, password.text)
              .then(() =>{
                  alert('Success')
              })
-             .catch(error => {
+             .catch(() => {
                  if (error.code === 'auth/email-already-in-use') {
                    console.log('That email address is already in use!');
                  }
@@ -82,15 +89,13 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
   return (
     <Box p={2}>
       <EmailField {...{ email, setEmail, textFieldVariant, loading }} />
-      <PasswordField
-        {...{ password, setPassword, textFieldVariant, loading }}/>
+      <PasswordField {...{ password, setPassword, textFieldVariant , loading }}/>
       <Typography
         variant="body2"
         color="textSecondary"
         align="right"
         style={{ cursor: "pointer" }}
-        onClick={goToForget}
-      >
+        onClick={goToForget} >
         Forget Password?
       </Typography>
 
@@ -113,24 +118,14 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
         </Typography>
       )}
       <Box display="flex" justifyContent="center">
-        {Object.entries(handleSocial).map(([key, handler]) => {
-          if (
-            typeof handler !== "function" ||
-            !Social[key] ||
-            !Social[key].icon
-          )
-            return null;
-          return (
             <IconButton
-              key={key}
-              aria-label={`${key} login button`}
+              aria-label={` login button`}
               onClick={()=> signInWithGoogle()}>
-              {React.createElement(Social[key].icon, {
+             {React.createElement(Google.icon, {
                 //htmlColor: Social[key].color,
               })}
             </IconButton>
-          );
-        })}
+
       </Box>
       {hideTabs && (
         <Typography

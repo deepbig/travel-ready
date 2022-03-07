@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore } from 'firebase/firestore';
-import "firebase/auth";
+import firebase from 'firebase/compat/app';
+import { getFirestore, collection, query, where, getDocs  } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_APIKEY,
@@ -12,10 +15,12 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MID,
 };
 
+//Google sign implementation
 const provider = new firebase.auth.GoogleAuthProvider();
 export const generateUserDocument = async (user: any, additionalData: any) => {
     if (!user) return;
-    const userRef = firestore.doc(`users/${user.uid}`);
+    const userRef = firebase.firestore()
+    .doc(`users/${user.uid}`);
     const snapshot = await userRef.get();
     if (!snapshot.exists) {
       const { email, displayName, photoURL } = user;
@@ -35,7 +40,8 @@ export const generateUserDocument = async (user: any, additionalData: any) => {
   const getUserDocument = async (uid: any) => {
     if (!uid) return null;
     try {
-      const userDocument = await firestore.doc(`users/${uid}`).get();
+      const userDocument = await firebase.firestore()
+      .doc(`users/${uid}`).get();
       return {
         uid,
         ...userDocument.data()

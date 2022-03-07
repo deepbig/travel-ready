@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { Navigate, Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route, Link } from 'react-router-dom';
 import LandingPage from 'pages/LandingPage';
 import DashboardPage from 'pages/DashboardPage';
 import CovidSearchPage from 'pages/CovidSearchPage';
 import PlacesSearchPage from 'pages/PlacesSearchPage';
-import WelcomePage from 'pages/WelcomePage'
+import WelcomePage from 'pages/WelcomePage';
 import UserProvider from "./providers/UserProvider";
 
 function App() {
@@ -21,6 +21,20 @@ function App() {
       },
     },
   });
+class WelcomePage extends React.Component<any, any> {
+  render() {
+    return (
+      <div>
+        <div>handleSignIn</div>
+        <Link to='/'>gobackToSignIn</Link>
+         <div>handleSignUp</div>
+         <Link to='/'>goToSignUp</Link>
+         <div>handleForget</div>
+         <Link to='/'>goToForget</Link>
+      </div>
+    );
+  }
+}
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,11 +48,12 @@ function App() {
           path='/covid-19-condition-search'
           element={<CovidSearchPage />} />
         <Route path='/places-search' element={<PlacesSearchPage />} />
-        <Route path='/Welcome' element={<WelcomePage />} />
+        <Route path='/WelcomePage' element={<WelcomePage />} />
       </Routes>
       </UserProvider>
     </ThemeProvider>
   );
 }
+
 
 export default App;

@@ -8,18 +8,20 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import EmailField from "components/Welcome/Fields/EmailField";
 import { Link } from '@reach/router';
 import { auth } from 'db/index';
-import {ForgetProps} from 'types';
-import {EmailFieldProps} from 'types';
-import {NameFieldProps} from 'types';
-import {PasswordFieldProps} from 'types';
-
 
 
 interface NaviProps {
   gobackToSignIn: () => any;
 }
 
-//const INITIAL = { text: "", error: "" };
+export interface ForgetProps {
+  handleForget: (forgetVars: { email: string }) => any;
+  textFieldVariant?: "outlined" | "filled" | "standard";
+  emailValidator?: (value: string) => boolean;
+}
+
+
+const INITIAL = { text: "", err: "" };
 
 const Forget: React.FC<ForgetProps & NaviProps> = ({
   gobackToSignIn,
@@ -27,12 +29,13 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
   textFieldVariant = "filled",
   emailValidator = (e) => !!e,
 }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(INITIAL);
    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: any ,
+     email:{ text: string} ) => {
    const { name, value } = event.currentTarget;
            if (name === "userEmail") {
              setEmail(value);
@@ -42,7 +45,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
  handleForget = (event: any) => {
         event.preventDefault();
         auth
-        .sendPasswordResetEmail(email)
+        .sendPasswordResetEmail(email.text)
         .then(() => {
           setEmailHasBeenSent(true);
           setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
@@ -66,7 +69,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
 
         <FormControl margin="none" fullWidth>
           <Button
-            onClick={handleSubmit}
+            onClick={handleForget}
             style={{ textTransform: "none" }}
             size="large"
             variant="contained"
