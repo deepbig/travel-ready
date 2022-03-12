@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Grid, Paper } from '@mui/material';
 import Title from 'components/title/Title';
-import { useTheme } from '@mui/material/styles';
 import Copyright from 'components/copyright/Copyright';
 import TravelHistory from 'components/travelHistory/TravelHistory';
 import TravelGoal from 'components/travelGoal/TravelGoal';
 import TravelPlan from 'components/travelPlan/TravelPlan';
 
 function Dashboard() {
-  const theme = useTheme();
   const [openTravelHistoryAddForm, setOpenTravelHistoryAddForm] =
     useState(false);
 

@@ -7,15 +7,10 @@ import {
   linearProgressClasses,
   CircularProgress,
   List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
 } from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { getUser } from 'modules/user';
 import React from 'react';
-import TravelIon from '@mui/icons-material/Flight';
 import { blue, purple, teal, orange, brown } from '@mui/material/colors';
 
 const BorderLinearProgress = styled(LinearProgress, {
@@ -39,7 +34,6 @@ interface LinearProgressProps {
 }
 
 const barColor = [blue[500], purple[500], teal[500], orange[500], brown[500]];
-const goals = [84, 12, 102, 82];
 
 const LinearProgressWithLabel = ({
   title,
@@ -86,15 +80,6 @@ function TravelGoal() {
         </Box>
       ) : (
         <List sx={{ p: 0, m: 0 }}>
-          {/* <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <TravelIon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={`${user.travels} travels in life`} />
-          </ListItem> */}
-          {/* TODO - Goal collection should be in the database */}
           <LinearProgressWithLabel
             title={`${user.countries_visited.length} / ${user.countries_plan.length} countries I visited`}
             value={
