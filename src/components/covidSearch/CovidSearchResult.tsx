@@ -57,16 +57,18 @@ function CovidSearchResult() {
         </Grid>
         <Grid item xs={12} sm={4}>
           <Typography align='center' variant='body1'>
-            Total Deaths: {covidResult[last].confirmed}
+            Total Deaths: {covidResult[last].deaths}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Typography align='center' variant='body1'>
             Total Comfirmed / Population:{' '}
-            {(
-              (covidResult[last].confirmed / covidResult[last].population) *
-              100
-            ).toFixed(2)}
+            {covidResult[last].population > 0
+              ? (
+                  (covidResult[last].confirmed / covidResult[last].population) *
+                  100
+                ).toFixed(2)
+              : ''}
             %
           </Typography>
         </Grid>

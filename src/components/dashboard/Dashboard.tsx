@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Grid, Paper } from '@mui/material';
 import Title from 'components/title/Title';
 import { useTheme } from '@mui/material/styles';
@@ -9,6 +9,18 @@ import TravelPlan from 'components/travelPlan/TravelPlan';
 
 function Dashboard() {
   const theme = useTheme();
+  const [openTravelHistoryAddForm, setOpenTravelHistoryAddForm] =
+    useState(false);
+
+  const handleOpenTravelHistoryForm = () => {
+    setOpenTravelHistoryAddForm(true);
+    alert('need to develop this feature');
+  };
+
+  const handleCloseHistoryAddForm = () => {
+    setOpenTravelHistoryAddForm(false);
+  };
+
   return (
     <Container maxWidth={false} sx={{ mt: 4, mb: 4 }}>
       <Grid container direction='row' spacing={3}>
@@ -18,9 +30,7 @@ function Dashboard() {
               p: 2,
               display: 'flex',
               flexDirection: 'column',
-              [theme.breakpoints.up('lg')]: {
-                maxHeight: 632,
-              },
+              minHeight: 250,
               overflow: 'hidden',
               overflowY: 'auto',
             }}
@@ -36,9 +46,7 @@ function Dashboard() {
               p: 2,
               display: 'flex',
               flexDirection: 'column',
-              [theme.breakpoints.up('lg')]: {
-                maxHeight: 632,
-              },
+              maxHeight: 250,
               overflow: 'hidden',
               overflowY: 'auto',
             }}
@@ -57,8 +65,13 @@ function Dashboard() {
               flexDirection: 'column',
             }}
           >
-            <Title>Travel History</Title>
-            <TravelHistory />
+            <Title buttonFunction={handleOpenTravelHistoryForm}>
+              Travel History
+            </Title>
+            <TravelHistory
+              open={openTravelHistoryAddForm}
+              handleClose={handleCloseHistoryAddForm}
+            />
           </Paper>
         </Grid>
       </Grid>

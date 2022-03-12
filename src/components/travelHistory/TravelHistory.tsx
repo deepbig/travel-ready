@@ -1,11 +1,16 @@
 import { Typography, Box } from '@mui/material';
 import React from 'react';
 
+interface TravelHistoryProps {
+  open: boolean;
+  handleClose: () => void;
+}
+
 /**
  * TODO - need to import Travel History data from firestore.
  * @returns
  */
-function TravelHistory() {
+function TravelHistory(props: TravelHistoryProps) {
   return (
     <Box m={2}>
       <Typography variant='guideline' align='center'>
