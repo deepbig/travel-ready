@@ -7,8 +7,16 @@ export enum PageName {
 }
 
 export type UserData = {
-    id: string;
-    name: string;
+    displayName: string,
+    email: string,
+    photoURL: string,
+    Budget: number,
+    countries_visited: [],
+    places_visited: [],
+    tags: [],
+    travels: number,
+    countries_plan: [],
+    places_plan: [],
 } | null;
 
 export interface CovidResultData {
@@ -18,7 +26,7 @@ export interface CovidResultData {
     date: string;
     deaths: number;
     deaths_daily: number;
-    population: number
+    population: number;
 };
 
 
