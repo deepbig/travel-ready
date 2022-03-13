@@ -44,7 +44,7 @@ function Dashboard() {
               p: 2,
               display: 'flex',
               flexDirection: 'column',
-              maxHeight: 250,
+              minHeight: 250,
               overflow: 'hidden',
               overflowY: 'auto',
             }}
