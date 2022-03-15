@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import FormControl from "@material-ui/core/FormControl";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
+import Button from '@mui/material/Button';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import EmailField from "components/Welcome/Fields/EmailField";
@@ -68,18 +68,21 @@ const SignIn: React.FC<SignInProps & NaviProps> = ({
                            }
 
        const signInWithEmailAndPasswordHandler = (event :any,
-       email:{ text: string; err: string } , password: { text: string; err: string }) => {
+       email:{ text: string; err: string } ,
+       password: { text: string; err: string }) => {
              event.preventDefault();
              auth.signInWithEmailAndPassword(email.text, password.text)
-             .then(() =>{
-                 alert('Success')
+             .then(res =>{
+                console.log( res, 'Success')
              })
-             .catch(() => {
+
+
+             .catch(error => {
                  if (error.code === 'auth/email-already-in-use') {
-                   console.log('That email address is already in use!');
+                   console.log(error, 'That email address is already in use!');
                  }
                  if (error.code === 'auth/invalid-email') {
-                       console.log('That email address is invalid!');
+                       console.log(error, 'That email address is invalid!');
                      }
 
                  console.error(error);

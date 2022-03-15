@@ -21,9 +21,9 @@ const App: React.FC<AuthProps> = ({
 }) => {
   const [authIndex, setAuthIndex] = React.useState(0);
 
-  const tabChange = (event: React.ChangeEvent, tabValue: number): void => {
-    event.preventDefault();
-    setAuthIndex(tabValue);
+   const tabChange = (event: any, tabValue: number) => {
+
+    setAuthIndex(event.target.tabValue);
   };
   const goToForget = () => {
     setAuthIndex(2);
