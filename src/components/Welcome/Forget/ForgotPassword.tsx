@@ -15,7 +15,7 @@ interface NaviProps {
 }
 
 export interface ForgetProps {
-  handleForget: (forgetVars: { email: string }) => any;
+  //handleForget: (forgetVars: { email: string }) => any;
   textFieldVariant?: "outlined" | "filled" | "standard";
   emailValidator?: (value: string) => boolean;
 }
@@ -25,7 +25,7 @@ const INITIAL = { text: "", err: "" };
 
 const Forget: React.FC<ForgetProps & NaviProps> = ({
   gobackToSignIn,
-  handleForget,
+  //handleForget,
   textFieldVariant = "filled",
   emailValidator = (e) => !!e,
 }) => {
@@ -42,7 +42,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
            }
          };
 
- handleForget = (event: any) => {
+ const handleForget = (event: any) => {
         event.preventDefault();
         auth
         .sendPasswordResetEmail(email.text)
@@ -71,7 +71,7 @@ const Forget: React.FC<ForgetProps & NaviProps> = ({
           <Button
             onClick={handleForget}
             style={{ textTransform: "none" }}
-            size="large"
+            size='large'
             variant="contained"
             color="primary"
             fullWidth >

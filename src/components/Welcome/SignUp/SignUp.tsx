@@ -7,8 +7,8 @@ import PasswordField from "components/Welcome/Fields/PasswordField";
 import NameField from "components/Welcome/Fields/NameField";
 import EmailField from "components/Welcome/Fields/EmailField";
 import {Link} from '@reach/router';
-import { signInWithGoogle } from 'db/index';
-import {auth, generateUserDocument} from 'db/index';
+import { signInWithGoogle, auth, generateUserDocument } from 'db';
+//import {auth, generateUserDocument} from 'db';
 
 const INITIAL = { text: "", err: "" };
 
@@ -88,7 +88,7 @@ const SignUp: React.FC<SignUpProps & NaviProps> = ({
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleSubmit} >
+          onClick={(event) => handleSubmit (event, email, password)} >
           Register
         </Button>
       </FormControl>
