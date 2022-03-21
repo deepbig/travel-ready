@@ -1,5 +1,5 @@
 import db from "..";
-import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { UserData } from 'types';
 const COLLECTION_NAME = "users";
 
@@ -51,7 +51,7 @@ export const getLoggedInUser = async (user: { uid: string; displayName: any; ema
  * @param uid 
  * @returns 
  */
-export const getUser = async (uid: string): Promise<UserData> => {
+export const getUserFromDB = async (uid: string): Promise<UserData> => {
     const docRef = doc(db, COLLECTION_NAME, uid);
     const docSnap = await getDoc(docRef);
 
@@ -63,14 +63,16 @@ export const getUser = async (uid: string): Promise<UserData> => {
     }
 }
 
-/**
- * This function will be used to update user profile 
- * @param uid 
- * @param interest // this can be countries, places, tags, travel post
- */
-export const addUserInterest = async (uid: string, interest: string) => {
+export const addUserCountry = async (uid: string, country: string) => {
     const docRef = doc(db, COLLECTION_NAME, uid);
     await updateDoc(docRef, {
-        interests: arrayUnion(interest)
+        countries_plan: arrayUnion(country)
+    });
+}
+
+export const deleteUserCountry = async (uid: string, country: string) => {
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        countries_plan: arrayRemove(country)
     });
 }

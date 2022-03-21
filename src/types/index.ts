@@ -11,12 +11,12 @@ export type UserData = {
     email: string,
     photoURL: string,
     Budget: number,
-    countries_visited: [],
-    places_visited: [],
+    countries_visited: string[],
+    places_visited: string[],
     tags: [],
     travels: number,
-    countries_plan: [],
-    places_plan: [],
+    countries_plan: string[],
+    places_plan: string[],
 } | null;
 
 export interface CovidResultData {
