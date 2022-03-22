@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Chip,
   Dialog,
@@ -25,7 +24,7 @@ import {
   deleteUserCountry,
   getUserFromDB,
 } from 'db/repositories/user';
-import { getBackdrop, setBackdrop } from 'modules/backdrop';
+import { setBackdrop } from 'modules/backdrop';
 
 interface CountriesFormProps {
   open: boolean;
@@ -90,6 +89,7 @@ function CountriesForm(props: CountriesFormProps) {
                 id='countries-to-add'
                 value={selected}
                 onChange={handleChange}
+                size='small'
               >
                 {countries?.map((c) => (
                   <MenuItem key={c.code} value={c.name}>

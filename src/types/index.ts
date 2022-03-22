@@ -13,7 +13,7 @@ export type UserData = {
     Budget: number,
     countries_visited: string[],
     places_visited: string[],
-    tags: [],
+    tags: string[],
     travels: number,
     countries_plan: string[],
     places_plan: string[],

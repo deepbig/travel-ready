@@ -41,7 +41,6 @@ function TravelPlan() {
 
   const handleEditPlaces = () => {
     setOpenPlaces(true);
-    alert('need to develop this places edit feature');
   };
 
   const handleClosePlaces = () => {
@@ -50,7 +49,6 @@ function TravelPlan() {
 
   const handleEditTags = () => {
     setOpenTags(true);
-    alert('need to develop this tags feature');
   };
 
   const handleCloseTags = () => {
@@ -91,7 +89,7 @@ function TravelPlan() {
                 secondaryAction={
                   <IconButton
                     edge='end'
-                    aria-label='edit-places-plan'
+                    aria-label='edit-sites-plan'
                     onClick={handleEditPlaces}
                   >
                     <EditIcon />
@@ -103,7 +101,7 @@ function TravelPlan() {
                     <PlaceIcon />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={`Places: ${user.places_plan?.length}`} />
+                <ListItemText primary={`Sites: ${user.places_plan?.length}`} />
               </ListItem>
               <ListItem
                 secondaryAction={

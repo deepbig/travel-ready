@@ -76,3 +76,35 @@ export const deleteUserCountry = async (uid: string, country: string) => {
         countries_plan: arrayRemove(country)
     });
 }
+
+export const addUserPlace = async (uid: string, place: string) => {
+    const lowerCase = place.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        places_plan: arrayUnion(lowerCase)
+    });
+}
+
+export const deleteUserPlace = async (uid: string, place: string) => {
+    const lowerCase = place.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        places_plan: arrayRemove(lowerCase)
+    });
+}
+
+export const addUserTag = async (uid: string, tag: string) => {
+    const lowerCase = tag.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        tags: arrayUnion(lowerCase)
+    });
+}
+
+export const deleteUserTag = async (uid: string, tag: string) => {
+    const lowerCase = tag.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        tags: arrayRemove(lowerCase)
+    });
+}
