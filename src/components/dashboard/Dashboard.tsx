@@ -12,7 +12,6 @@ function Dashboard() {
 
   const handleOpenTravelHistoryForm = () => {
     setOpenTravelHistoryAddForm(true);
-    alert('need to develop this feature');
   };
 
   const handleCloseHistoryAddForm = () => {

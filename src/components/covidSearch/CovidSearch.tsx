@@ -29,7 +29,6 @@ function CovidSearch() {
 
   useEffect(() => {
     if (!countries?.length) {
-      console.log(countries);
       fetchCountries();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

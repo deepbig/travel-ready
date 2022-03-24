@@ -1,6 +1,6 @@
 import db from "..";
 import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { UserData } from 'types';
+import { TravelHistoryAddFormData, UserData } from 'types';
 const COLLECTION_NAME = "users";
 
 export const getAllUsers = async (): Promise<Array<UserData>> => {
@@ -33,7 +33,7 @@ export const getLoggedInUser = async (user: { uid: string; displayName: any; ema
                 countries_visited: [],
                 places_visited: [],
                 tags: [],
-                travels: 0,
+                travel_histories: [],
                 countries_plan: [],
                 places_plan: [],
             });
@@ -106,5 +106,14 @@ export const deleteUserTag = async (uid: string, tag: string) => {
     const docRef = doc(db, COLLECTION_NAME, uid);
     await updateDoc(docRef, {
         tags: arrayRemove(lowerCase)
+    });
+}
+
+export const addUserTravelHistory = async (data: TravelHistoryAddFormData) => {
+    const docRef = doc(db, COLLECTION_NAME, data.uid);
+    await updateDoc(docRef, {
+        countries_visited: arrayUnion(data.country),
+        travel_histories: arrayUnion(data.id),
+        places_visited: arrayUnion(data.site),
     });
 }

@@ -14,7 +14,7 @@ export type UserData = {
     countries_visited: string[],
     places_visited: string[],
     tags: string[],
-    travels: number,
+    travel_histories: string[],
     countries_plan: string[],
     places_plan: string[],
 } | null;
@@ -29,11 +29,38 @@ export interface CovidResultData {
     population: number;
 };
 
-
 export interface CountryData {
     code: string;
     code3: string;
     name: string;
+}
+
+export interface TravelHistoryData {
+    id: string;
+    uid: string;
+    photoURL: string;
+    createAt: any;
+    country: string;
+    site: string;
+    description: string;
+    tags: string[];
+    image: string;
+    rating: number;
+    likes: string[];
+}
+
+export interface TravelHistoryAddFormData {
+    id: string;
+    uid: string;
+    photoURL: string;
+    country: string;
+    site: string;
+    description: string;
+    imageURL: string;
+    imageFile: File | null;
+    tags: string[];
+    tag: string;
+    rating: number;
 }
 
 declare module '@mui/material/styles' {
