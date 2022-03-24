@@ -17,3 +17,4 @@ export const onAuthChange = (callback: any) => {
 export const signOutUser = () => {
     return signOut(auth);
 }
+    

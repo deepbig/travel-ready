@@ -84,7 +84,8 @@ function TravelGoal() {
             title={`${user.countries_visited.length} / ${user.countries_plan.length} countries I visited`}
             value={
               user.countries_plan.length > 0
-                ? user.countries_visited.length / user.countries_plan.length
+                ? (user.countries_visited.length / user.countries_plan.length) *
+                  100
                 : 0
             }
             barColor={barColor[0]}
@@ -93,7 +94,7 @@ function TravelGoal() {
             title={`${user.places_visited.length} / ${user.places_plan.length} places I visited`}
             value={
               user.places_plan.length > 0
-                ? user.places_visited.length / user.places_plan.length
+                ? user.places_visited.length / user.places_plan.length * 100
                 : 0
             }
             barColor={barColor[0]}

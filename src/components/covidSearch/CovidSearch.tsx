@@ -29,7 +29,6 @@ function CovidSearch() {
 
   useEffect(() => {
     if (!countries?.length) {
-      console.log(countries);
       fetchCountries();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +91,7 @@ function CovidSearch() {
             </Typography>
           </Box>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth>
-            <Select id='test' value={selected} onChange={handleChange}>
+            <Select id='search-by-country' value={selected} onChange={handleChange}>
               {countries?.map((c) => (
                 <MenuItem key={c.code} value={c.code3}>
                   <img

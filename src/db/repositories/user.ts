@@ -1,6 +1,6 @@
 import db from "..";
-import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion } from 'firebase/firestore';
-import { UserData } from 'types';
+import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { TravelHistoryAddFormData, UserData } from 'types';
 const COLLECTION_NAME = "users";
 
 export const getAllUsers = async (): Promise<Array<UserData>> => {
@@ -33,7 +33,7 @@ export const getLoggedInUser = async (user: { uid: string; displayName: any; ema
                 countries_visited: [],
                 places_visited: [],
                 tags: [],
-                travels: 0,
+                travel_histories: [],
                 countries_plan: [],
                 places_plan: [],
             });
@@ -51,7 +51,7 @@ export const getLoggedInUser = async (user: { uid: string; displayName: any; ema
  * @param uid 
  * @returns 
  */
-export const getUser = async (uid: string): Promise<UserData> => {
+export const getUserFromDB = async (uid: string): Promise<UserData> => {
     const docRef = doc(db, COLLECTION_NAME, uid);
     const docSnap = await getDoc(docRef);
 
@@ -63,14 +63,57 @@ export const getUser = async (uid: string): Promise<UserData> => {
     }
 }
 
-/**
- * This function will be used to update user profile 
- * @param uid 
- * @param interest // this can be countries, places, tags, travel post
- */
-export const addUserInterest = async (uid: string, interest: string) => {
+export const addUserCountry = async (uid: string, country: string) => {
     const docRef = doc(db, COLLECTION_NAME, uid);
     await updateDoc(docRef, {
-        interests: arrayUnion(interest)
+        countries_plan: arrayUnion(country)
+    });
+}
+
+export const deleteUserCountry = async (uid: string, country: string) => {
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        countries_plan: arrayRemove(country)
+    });
+}
+
+export const addUserPlace = async (uid: string, place: string) => {
+    const lowerCase = place.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        places_plan: arrayUnion(lowerCase)
+    });
+}
+
+export const deleteUserPlace = async (uid: string, place: string) => {
+    const lowerCase = place.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        places_plan: arrayRemove(lowerCase)
+    });
+}
+
+export const addUserTag = async (uid: string, tag: string) => {
+    const lowerCase = tag.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        tags: arrayUnion(lowerCase)
+    });
+}
+
+export const deleteUserTag = async (uid: string, tag: string) => {
+    const lowerCase = tag.toLowerCase();
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        tags: arrayRemove(lowerCase)
+    });
+}
+
+export const addUserTravelHistory = async (data: TravelHistoryAddFormData) => {
+    const docRef = doc(db, COLLECTION_NAME, data.uid);
+    await updateDoc(docRef, {
+        countries_visited: arrayUnion(data.country),
+        travel_histories: arrayUnion(data.id),
+        places_visited: arrayUnion(data.site),
     });
 }
