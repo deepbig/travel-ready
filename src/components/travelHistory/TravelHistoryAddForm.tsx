@@ -139,7 +139,7 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
       // let newList = await getListTravelHistory([values.id]);
       let newPost = await getSingleTravelHistory(values.id);
       let newList = newPost ? [newPost].concat([...travelHistories]) : [...travelHistories];
-      if (newList.length % 3 === 1) {
+      if (newList.length > 2 && newList.length % 3 === 1) {
         newList.pop();
       }
       dispatch(setTravelHistoryList(newList));

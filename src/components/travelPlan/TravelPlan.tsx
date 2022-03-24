@@ -123,12 +123,18 @@ function TravelPlan() {
               </ListItem>
             </List>
           </Grid>
-          <CountriesForm
-            open={openCountries}
-            handleClose={handleCloseCountries}
-          />
-          <PlacesForm open={openPlaces} handleClose={handleClosePlaces} />
-          <TagsForm open={openTags} handleClose={handleCloseTags} />
+          {openCountries ? (
+            <CountriesForm
+              open={openCountries}
+              handleClose={handleCloseCountries}
+            />
+          ) : null}
+          {openPlaces ? (
+            <PlacesForm open={openPlaces} handleClose={handleClosePlaces} />
+          ) : null}
+          {openTags ? (
+            <TagsForm open={openTags} handleClose={handleCloseTags} />
+          ) : null}
         </>
       )}
     </Box>
