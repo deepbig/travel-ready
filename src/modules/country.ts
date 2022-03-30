@@ -15,7 +15,7 @@ const initialState: CountryState = {
         },
         {
             code: "AE",
-            code3: "UAE",
+            code3: "ARE",
             name: "United Arab Emirates",
         },
         {
@@ -540,7 +540,7 @@ const initialState: CountryState = {
         },
         {
             code: "IR",
-            code3: "IRI",
+            code3: "IRN",
             name: "Iran, Islamic Republic of",
         },
         {
@@ -1105,7 +1105,7 @@ const initialState: CountryState = {
         },
         {
             code: "TL",
-            code3: "TSL",
+            code3: "TLS",
             name: "Timor-Leste",
         },
         {
