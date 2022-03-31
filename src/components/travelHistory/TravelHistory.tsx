@@ -13,20 +13,31 @@ import {
   Rating,
   Paper,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  Button,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { getUser } from 'modules/user';
+import { getUser, setUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TravelHistoryAddForm from './TravelHistoryAddForm';
 import {
-  gettravelHistoryList,
+  getTravelHistoryList,
   setTravelHistoryList,
 } from 'modules/travelHistory';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { getListTravelHistory } from 'db/repositories/travelHistory';
+import {
+  delTravelHistory,
+  getListTravelHistory,
+} from 'db/repositories/travelHistory';
+import { auth } from 'db';
+import { setBackdrop } from 'modules/backdrop';
+import { TravelHistoryData } from 'types';
+import { getUserFromDB } from 'db/repositories/user';
 
 interface TravelHistoryProps {
   open: boolean;
@@ -35,9 +46,15 @@ interface TravelHistoryProps {
 
 function TravelHistory(props: TravelHistoryProps) {
   const user = useAppSelector(getUser);
-  const travelHistories = useAppSelector(gettravelHistoryList);
+  const currentUser = auth.currentUser;
+  const travelHistories = useAppSelector(getTravelHistoryList);
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(-1);
+  const [openDel, setOpenDel] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<TravelHistoryData | null>(
+    null
+  );
 
   useEffect(() => {
     if (user && count === -1) {
@@ -81,6 +98,53 @@ function TravelHistory(props: TravelHistoryProps) {
     setCount(count + 3);
   };
 
+  const handleDelete = async () => {
+    if (currentUser && selectedValue) {
+      dispatch(setBackdrop(true));
+
+      await delTravelHistory(currentUser.uid, selectedValue);
+
+      dispatch(setUser(await getUserFromDB(currentUser.uid)));
+
+      const newTravelHistories = [...travelHistories];
+      let index = newTravelHistories
+        .map((obj) => obj.id)
+        .indexOf(selectedValue.id);
+
+      if (index !== -1) {
+        newTravelHistories.splice(index, 1);
+      }
+
+      dispatch(setTravelHistoryList(newTravelHistories));
+
+      setSelectedValue(null);
+      setOpenDel(false);
+      dispatch(setBackdrop(false));
+    } else {
+      alert('This request is not valid. Please try again.');
+    }
+  };
+
+  const handleDeleteConfirm = (data: TravelHistoryData) => {
+    setSelectedValue(data);
+    setOpenDel(true);
+  };
+
+  const handleDeleteCancel = () => {
+    setSelectedValue(null);
+    setOpenDel(false);
+  };
+
+  const handleEdit = (data: TravelHistoryData) => {
+    setSelectedValue(data);
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+    setSelectedValue(null);
+  };
+
   return (
     <>
       <Box m={2}>
@@ -108,10 +172,16 @@ function TravelHistory(props: TravelHistoryProps) {
                       }
                       action={
                         <>
-                          <IconButton aria-label='edit'>
+                          <IconButton
+                            aria-label='edit'
+                            onClick={() => handleEdit(travelHistory)}
+                          >
                             <EditIcon />
                           </IconButton>
-                          <IconButton aria-label='delete'>
+                          <IconButton
+                            aria-label='delete'
+                            onClick={() => handleDeleteConfirm(travelHistory)}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </>
@@ -193,8 +263,27 @@ function TravelHistory(props: TravelHistoryProps) {
         <TravelHistoryAddForm
           open={props.open}
           handleClose={props.handleClose}
+          isUpdate={false}
+          travelHistory={null}
         />
       ) : null}
+      {openEdit ? (
+        <TravelHistoryAddForm
+          open={openEdit}
+          handleClose={handleCloseEdit}
+          isUpdate={true}
+          travelHistory={selectedValue}
+        />
+      ) : null}
+      <Dialog open={openDel}>
+        <DialogTitle>Are you sure you want to delete this history?</DialogTitle>
+        <DialogActions>
+          <Button autoFocus onClick={handleDeleteCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete}>Yes</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

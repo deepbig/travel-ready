@@ -1,6 +1,6 @@
 import db from "..";
 import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { TravelHistoryAddFormData, UserData } from 'types';
+import { TravelHistoryAddFormData, TravelHistoryData, UserData } from 'types';
 const COLLECTION_NAME = "users";
 
 export const getAllUsers = async (): Promise<Array<UserData>> => {
@@ -115,5 +115,14 @@ export const addUserTravelHistory = async (data: TravelHistoryAddFormData) => {
         countries_visited: arrayUnion(data.country),
         travel_histories: arrayUnion(data.id),
         places_visited: arrayUnion(data.site),
+    });
+}
+
+export const delUserTravelHistory = async (uid: string, data: TravelHistoryData) => {
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    await updateDoc(docRef, {
+        countries_visited: arrayRemove(data.country),
+        travel_histories: arrayRemove(data.id),
+        places_visited: arrayRemove(data.site),
     });
 }
