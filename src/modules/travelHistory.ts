@@ -21,5 +21,5 @@ export const travelHistorySlice = createSlice({
 })
 
 export const { setTravelHistoryList } = travelHistorySlice.actions;
-export const gettravelHistoryList = (state: RootState) => state.travelHistory.travelHistoryList;
+export const getTravelHistoryList = (state: RootState) => state.travelHistory.travelHistoryList;
 export default travelHistorySlice.reducer;

@@ -1,21 +1,19 @@
 import db from "..";
-import { setDoc, doc, collection, getDocs, getDoc, query, where, Timestamp, orderBy, limit, startAfter } from 'firebase/firestore';
+import { setDoc, doc, collection, getDocs, getDoc, query, where, Timestamp, orderBy, limit, startAfter, deleteDoc, updateDoc } from 'firebase/firestore';
 import { storage } from "..";
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { TravelHistoryData, TravelHistoryAddFormData } from 'types';
-import { addUserTravelHistory } from "./user";
+import { addUserTravelHistory, delUserTravelHistory } from "./user";
 const COLLECTION_NAME = "travel_histories";
 
 export const getListTravelHistory = async (list: string[], lastDate: any, count: number): Promise<Array<TravelHistoryData>> => {
     const q = lastDate == null ?
-    query(collection(db, COLLECTION_NAME), where("id", "in", list), orderBy("createAt", "desc"), limit(count))
-    : query(collection(db, COLLECTION_NAME), where("id", "in", list), orderBy("createAt", "desc"), startAfter(lastDate), limit(count));
+        query(collection(db, COLLECTION_NAME), where("id", "in", list), orderBy("createAt", "desc"), limit(count))
+        : query(collection(db, COLLECTION_NAME), where("id", "in", list), orderBy("createAt", "desc"), startAfter(lastDate), limit(count));
 
-    console.log(list);
     const travelHistoriesSnapshot = await getDocs(q);
     const data: Array<any> = [];
     travelHistoriesSnapshot.docs.forEach((_data) => {
-        console.log(_data.id);
         data.push({ ..._data.data() });
     })
     return travelHistoriesSnapshot.docs.length > 0 ? data as Array<TravelHistoryData> : [];
@@ -56,5 +54,25 @@ export const setTravelHistory = async (data: TravelHistoryAddFormData) => {
 
     // save id to user.
     await addUserTravelHistory(data);
+}
 
+export const delTravelHistory = async (uid: string, postData: TravelHistoryData) => {
+
+    await deleteDoc(doc(db, COLLECTION_NAME, postData.id));
+
+    const imageRef = ref(storage, `/travel_histories/${postData.id}/1.jpg`);
+    deleteObject(imageRef).then().catch(() => {
+        alert("Fail to delete image due to internal error.");
+    });
+
+    await delUserTravelHistory(uid, postData);
+}
+
+export const updateTravelHistory = async (id: string, data: TravelHistoryAddFormData) => {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    await updateDoc(docRef, {
+        description: data.description,
+        tags: data.tags,
+        rating: data.rating,
+    });
 }

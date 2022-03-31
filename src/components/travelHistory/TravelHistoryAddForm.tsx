@@ -23,23 +23,32 @@ import { getUser, setUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { auth } from 'db';
 import { setBackdrop } from 'modules/backdrop';
-import { TravelHistoryAddFormData } from 'types';
+import { TravelHistoryAddFormData, TravelHistoryData } from 'types';
 import Title from 'components/title/Title';
-import { getSingleTravelHistory, setTravelHistory } from 'db/repositories/travelHistory';
+import {
+  getSingleTravelHistory,
+  setTravelHistory,
+  updateTravelHistory,
+} from 'db/repositories/travelHistory';
 import { getCountries } from 'modules/country';
 import { isFound } from 'lib';
 import { getUserFromDB } from 'db/repositories/user';
-import { gettravelHistoryList, setTravelHistoryList } from 'modules/travelHistory';
+import {
+  getTravelHistoryList,
+  setTravelHistoryList,
+} from 'modules/travelHistory';
 
 interface TravelHistoryAddFormProps {
   open: boolean;
   handleClose: () => void;
+  isUpdate: boolean;
+  travelHistory: TravelHistoryData | null;
 }
 
 function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
   const user = useAppSelector(getUser);
   const currentUser = auth.currentUser;
-  const travelHistories = useAppSelector(gettravelHistoryList);
+  const travelHistories = useAppSelector(getTravelHistoryList);
   const countries = useAppSelector(getCountries);
   const dispatch = useAppDispatch();
   const [values, setValues] = useState<TravelHistoryAddFormData>({
@@ -62,14 +71,28 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
         id: `${currentUser?.uid}_${user.travel_histories.length + 1}`,
         uid: `${currentUser?.uid}`,
         photoURL: user.photoURL,
-        country: '',
-        site: '',
-        description: '',
-        tags: [],
+        country:
+          props.isUpdate && props.travelHistory
+            ? props.travelHistory.country
+            : '',
+        site:
+          props.isUpdate && props.travelHistory ? props.travelHistory.site : '',
+        description:
+          props.isUpdate && props.travelHistory
+            ? props.travelHistory.description
+            : '',
+        tags:
+          props.isUpdate && props.travelHistory ? props.travelHistory.tags : [],
         tag: '',
-        imageURL: '',
+        imageURL:
+          props.isUpdate && props.travelHistory
+            ? props.travelHistory.image
+            : '',
         imageFile: null,
-        rating: 5,
+        rating:
+          props.isUpdate && props.travelHistory
+            ? props.travelHistory.rating
+            : 5,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,7 +131,7 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
     if (isFound(values.tag, values.tags)) {
       alert('You cannot add same tag twice.');
     } else {
-      const newTags = values.tags;
+      const newTags = [...values.tags];
       newTags.push(values.tag.toLowerCase());
       setValues({ ...values, tag: '', tags: newTags });
     }
@@ -138,7 +161,9 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
       // add travel history in the beginning, remove last one.
       // let newList = await getListTravelHistory([values.id]);
       let newPost = await getSingleTravelHistory(values.id);
-      let newList = newPost ? [newPost].concat([...travelHistories]) : [...travelHistories];
+      let newList = newPost
+        ? [newPost].concat([...travelHistories])
+        : [...travelHistories];
       if (newList.length > 2 && newList.length % 3 === 1) {
         newList.pop();
       }
@@ -147,6 +172,29 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
       props.handleClose();
     } else {
       alert('Please add all required fields first.');
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (props.travelHistory?.id) {
+      dispatch(setBackdrop(true));
+      await updateTravelHistory(props.travelHistory.id, values);
+
+      let newPost = await getSingleTravelHistory(props.travelHistory.id);
+      let index = travelHistories
+        .map((obj) => obj.id)
+        .indexOf(props.travelHistory.id);
+
+      if (index !== -1 && newPost) {
+        let newList = [...travelHistories];
+        newList[index] = newPost;
+        dispatch(setTravelHistoryList(newList));
+      }
+      dispatch(setBackdrop(false));
+      props.handleClose();
+    } else {
+      alert('Selected Travel history does not exist.');
+      props.handleClose();
     }
   };
 
@@ -163,17 +211,19 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               <Typography component='h2' variant='h6' gutterBottom>
                 Image
               </Typography>
-              <Button variant='contained' component='label'>
-                Upload
-                <input
-                  type='file'
-                  accept='image/x-png,image/jpeg'
-                  hidden
-                  onChange={(e) => {
-                    onImageChange(e);
-                  }}
-                />
-              </Button>
+              {props.isUpdate ? null : (
+                <Button variant='contained' component='label'>
+                  Upload
+                  <input
+                    type='file'
+                    accept='image/x-png,image/jpeg'
+                    hidden
+                    onChange={(e) => {
+                      onImageChange(e);
+                    }}
+                  />
+                </Button>
+              )}
             </Box>
             <Card sx={{ marginTop: 1 }}>
               {values.imageURL ? (
@@ -198,6 +248,7 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
                 name='country'
                 onChange={handleChangeSelect}
                 size='small'
+                disabled={props.isUpdate}
               >
                 {countries?.map((c) => (
                   <MenuItem key={c.code} value={c.name}>
@@ -227,12 +278,12 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               onChange={handleChangeText}
               size='small'
               value={values.site}
+              disabled={props.isUpdate}
             />
           </Grid>
 
           <Grid item xs={12}>
             <Title>Tags</Title>
-
             <TextField
               margin='dense'
               id='tag'
@@ -288,9 +339,14 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
           </Grid>
           <Grid item xs={12}>
             <Title>Review</Title>
-            <Rating name="rating" size="large" value={values.rating} onChange={(event, newValue) => {
-              setValues({ ...values, rating: newValue ? newValue : 1 })
-            }} />
+            <Rating
+              name='rating'
+              size='large'
+              value={values.rating}
+              onChange={(event, newValue) => {
+                setValues({ ...values, rating: newValue ? newValue : 1 });
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <Title>Description</Title>
@@ -304,13 +360,16 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               value={values.description}
               variant='outlined'
               onChange={handleChangeText}
-              size="small"
+              size='small'
             />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} variant='contained'>
+        <Button
+          onClick={props.isUpdate ? handleUpdate : handleSubmit}
+          variant='contained'
+        >
           Save
         </Button>
         <Button onClick={props.handleClose} variant='contained'>
