@@ -33,11 +33,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   delTravelHistory,
   getListTravelHistory,
+  getSingleTravelHistory,
+  updateTravelHistoryLikes,
 } from 'db/repositories/travelHistory';
 import { auth } from 'db';
 import { setBackdrop } from 'modules/backdrop';
 import { TravelHistoryData } from 'types';
 import { getUserFromDB } from 'db/repositories/user';
+import { pink } from '@mui/material/colors';
 
 interface TravelHistoryProps {
   open: boolean;
@@ -55,6 +58,7 @@ function TravelHistory(props: TravelHistoryProps) {
   const [selectedValue, setSelectedValue] = useState<TravelHistoryData | null>(
     null
   );
+  const [isLikeProcessing, setIsLikeProcessing] = useState<string | null>(null);
 
   useEffect(() => {
     if (user && count === -1) {
@@ -145,6 +149,23 @@ function TravelHistory(props: TravelHistoryProps) {
     setSelectedValue(null);
   };
 
+  const handleLike = async (data: TravelHistoryData) => {
+    if (currentUser) {
+      setIsLikeProcessing(data.id);
+      await updateTravelHistoryLikes(currentUser.uid, data);
+      let newPost = await getSingleTravelHistory(data.id);
+      let index = travelHistories.map((obj) => obj.id).indexOf(data.id);
+      if (index !== -1 && newPost) {
+        let newList = [...travelHistories];
+        newList[index] = newPost;
+        dispatch(setTravelHistoryList(newList));
+      }
+      setIsLikeProcessing(null);
+    } else {
+      alert('user does not logged in.');
+    }
+  };
+
   return (
     <>
       <Box m={2}>
@@ -225,8 +246,20 @@ function TravelHistory(props: TravelHistoryProps) {
                       ) : null}
                     </CardContent>
                     <CardActions disableSpacing>
-                      <IconButton aria-label='add to favorites'>
+                      <IconButton
+                        aria-label='add to favorites'
+                        onClick={() => handleLike(travelHistory)}
+                        style={{ color: pink[400] }}
+                        disabled={
+                          isLikeProcessing === travelHistory.id ? true : false
+                        }
+                      >
                         <FavoriteIcon />
+                        {travelHistory.likes.length > 0 ? (
+                          <Typography variant='body2'>
+                            +{travelHistory.likes.length}
+                          </Typography>
+                        ) : null}
                       </IconButton>
                       <Rating
                         name='rating'
