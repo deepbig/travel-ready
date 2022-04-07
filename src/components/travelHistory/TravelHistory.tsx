@@ -40,7 +40,8 @@ import { auth } from 'db';
 import { setBackdrop } from 'modules/backdrop';
 import { TravelHistoryData } from 'types';
 import { getUserFromDB } from 'db/repositories/user';
-import { pink } from '@mui/material/colors';
+import { grey, pink } from '@mui/material/colors';
+import { isFound } from 'lib';
 
 interface TravelHistoryProps {
   open: boolean;
@@ -249,7 +250,14 @@ function TravelHistory(props: TravelHistoryProps) {
                       <IconButton
                         aria-label='add to favorites'
                         onClick={() => handleLike(travelHistory)}
-                        style={{ color: pink[400] }}
+                        style={{
+                          color: isFound(
+                            currentUser ? currentUser.uid : '',
+                            travelHistory.likes
+                          )
+                            ? pink[400]
+                            : grey[300],
+                        }}
                         disabled={
                           isLikeProcessing === travelHistory.id ? true : false
                         }
