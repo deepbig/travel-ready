@@ -1,5 +1,5 @@
 import db from "..";
-import { setDoc, doc, collection, getDocs, getDoc, query, where, Timestamp, orderBy, limit, startAfter, deleteDoc, updateDoc } from 'firebase/firestore';
+import { setDoc, doc, collection, getDocs, getDoc, query, where, Timestamp, orderBy, limit, startAfter, deleteDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 import { storage } from "..";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { TravelHistoryData, TravelHistoryAddFormData } from 'types';
@@ -75,4 +75,17 @@ export const updateTravelHistory = async (id: string, data: TravelHistoryAddForm
         tags: data.tags,
         rating: data.rating,
     });
+}
+
+export const updateTravelHistoryLikes = async (uid: string, data: TravelHistoryData) => {
+    const docRef = doc(db, COLLECTION_NAME, data.id);
+    if (data.likes.some((val) => val === uid)) { // remove uid from likes
+        await updateDoc(docRef, {
+            likes: arrayRemove(uid),
+        })
+    } else { // add uid from likes
+        await updateDoc(docRef, {
+            likes: arrayUnion(uid),
+        })
+    }
 }
