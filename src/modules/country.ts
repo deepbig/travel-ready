@@ -610,7 +610,7 @@ const initialState: CountryState = {
         },
         {
             code: "KR",
-            code3: "ROK",
+            code3: "KOR",
             name: "Korea, Republic of",
         },
         {
