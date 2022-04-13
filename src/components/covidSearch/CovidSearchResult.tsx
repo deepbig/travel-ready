@@ -12,19 +12,26 @@ import {
   Line,
 } from 'recharts';
 
-function CovidSearchResult() {
+interface CovidSearchResultProps {
+  isMinimum: boolean;
+}
+
+function CovidSearchResult(props: CovidSearchResultProps) {
   const covidResult = useAppSelector(getCovidResult);
   const last = covidResult.length - 1;
 
   return (
     <>
       <Grid container justifyContent='center' direction='row'>
-        <Grid item xs={12}>
-          <Typography align='center' variant='h6' gutterBottom>
-            Country: {covidResult[last].country}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        {props.isMinimum ? null : (
+          <Grid item xs={12}>
+            <Typography align='center' variant='h6' gutterBottom>
+              Country: {covidResult[last].country}
+            </Typography>
+          </Grid>
+        )}
+
+        <Grid item xs={12} sm={props.isMinimum ? 12 : 6}>
           <ResponsiveContainer height={250}>
             <LineChart data={covidResult}>
               <XAxis dataKey='date' />
@@ -39,28 +46,31 @@ function CovidSearchResult() {
             </LineChart>
           </ResponsiveContainer>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <ResponsiveContainer height={250}>
-            <LineChart data={covidResult}>
-              <XAxis dataKey='date' />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type='monotone' dataKey='deaths_daily' stroke='#82ca9d' />
-            </LineChart>
-          </ResponsiveContainer>
-        </Grid>
-        <Grid item xs={12} sm={4}>
+        {props.isMinimum ? null : (
+          <Grid item xs={12} sm={6}>
+            <ResponsiveContainer height={250}>
+              <LineChart data={covidResult}>
+                <XAxis dataKey='date' />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type='monotone' dataKey='deaths_daily' stroke='#82ca9d' />
+              </LineChart>
+            </ResponsiveContainer>
+          </Grid>
+        )}
+
+        <Grid item xs={12} sm={props.isMinimum ? 12 : 4}>
           <Typography align='center' variant='body1'>
             Total Confirmed: {covidResult[last].confirmed}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={props.isMinimum ? 12 : 4}>
           <Typography align='center' variant='body1'>
             Total Deaths: {covidResult[last].deaths}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={props.isMinimum ? 12 : 4}>
           <Typography align='center' variant='body1'>
             Total Comfirmed / Population:{' '}
             {covidResult[last].population > 0

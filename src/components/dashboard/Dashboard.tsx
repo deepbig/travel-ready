@@ -68,6 +68,7 @@ function Dashboard() {
             <TravelHistory
               open={openTravelHistoryAddForm}
               handleClose={handleCloseHistoryAddForm}
+              isPersonalOnly={true}
             />
           </Paper>
         </Grid>
