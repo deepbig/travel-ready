@@ -38,7 +38,10 @@ import { TravelHistoryData } from 'types';
 import { getUserFromDB } from 'db/repositories/user';
 import { grey, pink } from '@mui/material/colors';
 import { isFound } from 'lib';
-import { getPlacesSearchResult } from 'modules/placesSearch';
+import {
+  getPlacesSearchResult,
+  setPlacesSearchResult,
+} from 'modules/placesSearch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -154,7 +157,7 @@ function TravelHistory(props: TravelHistoryProps) {
   const handleCloseEdit = () => {
     setOpenDetail(false);
     setSelectedValue(null);
-    dispatch(setCovidResult([]))
+    dispatch(setCovidResult([]));
   };
 
   const handleLike = async (data: TravelHistoryData) => {
@@ -166,7 +169,11 @@ function TravelHistory(props: TravelHistoryProps) {
       if (index !== -1 && newPost) {
         let newList = [...travelHistories];
         newList[index] = newPost;
-        dispatch(setTravelHistoryList(newList));
+        dispatch(
+          props.isPersonalOnly
+            ? setTravelHistoryList(newList)
+            : setPlacesSearchResult(newList)
+        );
       }
       setIsLikeProcessing(null);
     } else {
