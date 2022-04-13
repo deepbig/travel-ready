@@ -21,15 +21,11 @@ import {
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { getUser, setUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import TravelHistoryAddForm from './TravelHistoryAddForm';
+import TravelHistoryForm from './TravelHistoryForm';
 import {
   getTravelHistoryList,
   setTravelHistoryList,
 } from 'modules/travelHistory';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   delTravelHistory,
   getListTravelHistory,
@@ -42,20 +38,30 @@ import { TravelHistoryData } from 'types';
 import { getUserFromDB } from 'db/repositories/user';
 import { grey, pink } from '@mui/material/colors';
 import { isFound } from 'lib';
+import { getPlacesSearchResult } from 'modules/placesSearch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import { setCovidResult } from 'modules/covid';
 
 interface TravelHistoryProps {
   open: boolean;
   handleClose: () => void;
+  isPersonalOnly: boolean;
 }
 
 function TravelHistory(props: TravelHistoryProps) {
   const user = useAppSelector(getUser);
   const currentUser = auth.currentUser;
-  const travelHistories = useAppSelector(getTravelHistoryList);
+  const travelHistories = useAppSelector(
+    props.isPersonalOnly ? getTravelHistoryList : getPlacesSearchResult
+  );
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(-1);
   const [openDel, setOpenDel] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
   const [selectedValue, setSelectedValue] = useState<TravelHistoryData | null>(
     null
   );
@@ -142,12 +148,13 @@ function TravelHistory(props: TravelHistoryProps) {
 
   const handleEdit = (data: TravelHistoryData) => {
     setSelectedValue(data);
-    setOpenEdit(true);
+    setOpenDetail(true);
   };
 
   const handleCloseEdit = () => {
-    setOpenEdit(false);
+    setOpenDetail(false);
     setSelectedValue(null);
+    dispatch(setCovidResult([]))
   };
 
   const handleLike = async (data: TravelHistoryData) => {
@@ -174,7 +181,15 @@ function TravelHistory(props: TravelHistoryProps) {
           <Box display='flex' justifyContent='center' m={1} p={1}>
             <CircularProgress color='inherit' />
           </Box>
-        ) : user.travel_histories?.length > 0 ? (
+        ) : props.isPersonalOnly && user.travel_histories?.length === 0 ? (
+          <Typography variant='guideline' align='center'>
+            You don't have any travel history. Please add places you visited!
+          </Typography>
+        ) : !props.isPersonalOnly && travelHistories?.length === 0 ? (
+          <Typography variant='guideline' align='center'>
+            There are no places available with the tag you provided.
+          </Typography>
+        ) : (
           <>
             <Grid
               container
@@ -193,20 +208,29 @@ function TravelHistory(props: TravelHistoryProps) {
                         />
                       }
                       action={
-                        <>
+                        props.isPersonalOnly ? (
+                          <>
+                            <IconButton
+                              aria-label='edit'
+                              onClick={() => handleEdit(travelHistory)}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label='delete'
+                              onClick={() => handleDeleteConfirm(travelHistory)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </>
+                        ) : (
                           <IconButton
-                            aria-label='edit'
+                            aria-label='detail'
                             onClick={() => handleEdit(travelHistory)}
                           >
-                            <EditIcon />
+                            <ArtTrackIcon />
                           </IconButton>
-                          <IconButton
-                            aria-label='delete'
-                            onClick={() => handleDeleteConfirm(travelHistory)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </>
+                        )
                       }
                       title={travelHistory.site}
                       subheader={travelHistory.createAt.toDate().toString()}
@@ -280,39 +304,39 @@ function TravelHistory(props: TravelHistoryProps) {
                 </Grid>
               ))}
             </Grid>
-            <Box mt={2} display='flex' justifyContent='center'>
-              {count > user.travel_histories.length ? (
-                <Typography>
-                  <Typography variant='guideline' align='center'>
-                    This is the last travel history!
+            {props.isPersonalOnly ? (
+              <Box mt={2} display='flex' justifyContent='center'>
+                {count > user.travel_histories.length ? (
+                  <Typography>
+                    <Typography variant='guideline' align='center'>
+                      This is the last travel history!
+                    </Typography>
                   </Typography>
-                </Typography>
-              ) : (
-                <IconButton onClick={updateCount}>
-                  <ExpandMoreIcon />
-                </IconButton>
-              )}
-            </Box>
+                ) : (
+                  <IconButton onClick={updateCount}>
+                    <ExpandMoreIcon />
+                  </IconButton>
+                )}
+              </Box>
+            ) : null}
           </>
-        ) : (
-          <Typography variant='guideline' align='center'>
-            You don't have any travel history. Please add places you visited!
-          </Typography>
         )}
       </Box>
       {props.open ? (
-        <TravelHistoryAddForm
+        <TravelHistoryForm
           open={props.open}
           handleClose={props.handleClose}
           isUpdate={false}
+          isDetail={false}
           travelHistory={null}
         />
       ) : null}
-      {openEdit ? (
-        <TravelHistoryAddForm
-          open={openEdit}
+      {openDetail ? (
+        <TravelHistoryForm
+          open={openDetail}
           handleClose={handleCloseEdit}
           isUpdate={true}
+          isDetail={!props.isPersonalOnly}
           travelHistory={selectedValue}
         />
       ) : null}

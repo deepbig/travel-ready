@@ -17,13 +17,18 @@ import {
   MenuItem,
   SelectChangeEvent,
   Rating,
+  CircularProgress,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { getUser, setUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { auth } from 'db';
 import { setBackdrop } from 'modules/backdrop';
-import { TravelHistoryAddFormData, TravelHistoryData } from 'types';
+import {
+  CovidResultData,
+  TravelHistoryAddFormData,
+  TravelHistoryData,
+} from 'types';
 import Title from 'components/title/Title';
 import {
   getSingleTravelHistory,
@@ -31,26 +36,32 @@ import {
   updateTravelHistory,
 } from 'db/repositories/travelHistory';
 import { getCountries } from 'modules/country';
-import { isFound } from 'lib';
+import { findCountryByName, isFound } from 'lib';
 import { getUserFromDB } from 'db/repositories/user';
 import {
   getTravelHistoryList,
   setTravelHistoryList,
 } from 'modules/travelHistory';
+import axios from 'axios';
+import { getCovidResult, setCovidResult } from 'modules/covid';
+import CovidSearchResult from 'components/covidSearch/CovidSearchResult';
 
 interface TravelHistoryAddFormProps {
   open: boolean;
   handleClose: () => void;
   isUpdate: boolean;
+  isDetail: boolean;
   travelHistory: TravelHistoryData | null;
 }
 
-function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
+function TravelHistoryForm(props: TravelHistoryAddFormProps) {
   const user = useAppSelector(getUser);
   const currentUser = auth.currentUser;
   const travelHistories = useAppSelector(getTravelHistoryList);
+  const covidResult = useAppSelector(getCovidResult);
   const countries = useAppSelector(getCountries);
   const dispatch = useAppDispatch();
+  const [covidBackdrop, setCovidBackdrop] = useState(false);
   const [values, setValues] = useState<TravelHistoryAddFormData>({
     id: '',
     uid: '',
@@ -97,6 +108,13 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    if (props.isDetail && values.country) {
+      getSearchResult();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isDetail, values.country]);
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
@@ -198,6 +216,42 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
     }
   };
 
+  const getSearchResult = () => {
+    const max_date = new Date();
+    const min_date = new Date(new Date().setDate(new Date().getDate() - 8));
+    const country = findCountryByName(values.country, countries);
+    if (country) {
+      setCovidBackdrop(true);
+      axios
+        .get(
+          `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/countries_summary?country_iso3=${
+            country?.code3
+          }&min_date=${min_date.toISOString()}&max_date=${max_date.toISOString()}`
+        )
+        .then((res: any) => {
+          const data: CovidResultData[] = [];
+
+          res.data?.forEach((_data: any) => {
+            const result: CovidResultData = {
+              country: _data.country,
+              confirmed: _data.confirmed,
+              confirmed_daily: _data.confirmed_daily,
+              date: new Date(_data.date).toISOString().split('T')[0],
+              deaths: _data.deaths,
+              deaths_daily: _data.deaths_daily,
+              population: _data.population,
+            };
+            data.push(result);
+          });
+
+          dispatch(setCovidResult(data));
+        })
+        .finally(() => {
+          setCovidBackdrop(false);
+        });
+    }
+  };
+
   return (
     <Dialog open={props.open}>
       <DialogTitle sx={{ textAlign: 'center' }}>
@@ -248,7 +302,7 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
                 name='country'
                 onChange={handleChangeSelect}
                 size='small'
-                disabled={props.isUpdate}
+                disabled={props.isUpdate || props.isDetail}
               >
                 {countries?.map((c) => (
                   <MenuItem key={c.code} value={c.name}>
@@ -267,6 +321,23 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
             </FormControl>
           </Grid>
 
+          {props.isDetail ? (
+            <Grid item xs={12}>
+              <Title>COVID-19 Condition in this Country</Title>
+              <Box display='flex' justifyContent='center' m={2}>
+                {covidBackdrop ? (
+                  <CircularProgress color='inherit' />
+                ) : covidResult.length <= 0 ? (
+                  <Typography variant='guideline' align='center'>
+                    There are no recent COVID-19 data on this country.
+                  </Typography>
+                ) : (
+                  <CovidSearchResult isMinimum={true} />
+                )}
+              </Box>
+            </Grid>
+          ) : null}
+
           <Grid item xs={12}>
             <Title>Sites</Title>
             <TextField
@@ -278,31 +349,35 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               onChange={handleChangeText}
               size='small'
               value={values.site}
-              disabled={props.isUpdate}
+              disabled={props.isUpdate || props.isDetail}
             />
           </Grid>
 
           <Grid item xs={12}>
             <Title>Tags</Title>
-            <TextField
-              margin='dense'
-              id='tag'
-              name='tag'
-              fullWidth
-              variant='outlined'
-              onChange={handleChangeText}
-              size='small'
-              value={values.tag}
-            />
-            <Button
-              variant='contained'
-              onClick={handleAddTag}
-              fullWidth
-              disabled={!values.tag}
-              component='label'
-            >
-              Add
-            </Button>
+            {props.isDetail ? null : (
+              <>
+                <TextField
+                  margin='dense'
+                  id='tag'
+                  name='tag'
+                  fullWidth
+                  variant='outlined'
+                  onChange={handleChangeText}
+                  size='small'
+                  value={values.tag}
+                />
+                <Button
+                  variant='contained'
+                  onClick={handleAddTag}
+                  fullWidth
+                  disabled={!values.tag}
+                  component='label'
+                >
+                  Add
+                </Button>
+              </>
+            )}
 
             <Paper variant='outlined' sx={{ marginTop: 0.5 }}>
               <Paper
@@ -319,16 +394,28 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
                 {values.tags.length > 0 ? (
                   values.tags.map((tag, i) => (
                     <li key={i}>
-                      <Chip
-                        label={tag}
-                        sx={{ margin: 0.5 }}
-                        onDelete={() => {
-                          handleDeleteTag(tag);
-                        }}
-                        color='primary'
-                      />
+                      {props.isDetail ? (
+                        <Chip
+                          label={tag}
+                          sx={{ margin: 0.5 }}
+                          color='primary'
+                        />
+                      ) : (
+                        <Chip
+                          label={tag}
+                          sx={{ margin: 0.5 }}
+                          onDelete={() => {
+                            handleDeleteTag(tag);
+                          }}
+                          color='primary'
+                        />
+                      )}
                     </li>
                   ))
+                ) : props.isDetail ? (
+                  <Typography variant='guideline' align='center'>
+                    There is no tag on this site.
+                  </Typography>
                 ) : (
                   <Typography variant='guideline' align='center'>
                     Please add a tag to display list.
@@ -343,6 +430,7 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               name='rating'
               size='large'
               value={values.rating}
+              disabled={props.isDetail}
               onChange={(event, newValue) => {
                 setValues({ ...values, rating: newValue ? newValue : 1 });
               }}
@@ -361,23 +449,27 @@ function TravelHistoryAddForm(props: TravelHistoryAddFormProps) {
               variant='outlined'
               onChange={handleChangeText}
               size='small'
+              disabled={props.isDetail}
             />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={props.isUpdate ? handleUpdate : handleSubmit}
-          variant='contained'
-        >
-          Save
-        </Button>
+        {props.isDetail ? null : (
+          <Button
+            onClick={props.isUpdate ? handleUpdate : handleSubmit}
+            variant='contained'
+          >
+            Save
+          </Button>
+        )}
+
         <Button onClick={props.handleClose} variant='contained'>
-          Cancel
+          {props.isDetail ? 'Close' : 'Cancel'}
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export default TravelHistoryAddForm;
+export default TravelHistoryForm;

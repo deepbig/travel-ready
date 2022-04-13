@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Toolbar } from '@mui/material';
 import NavBar from 'components/navBar/NavBar';
 import { PageName } from 'types';
+import PlacesSearch from 'components/placesSearch/PlacesSearch';
 
 function PlacesSearchPage() {
   return (
@@ -20,7 +21,7 @@ function PlacesSearchPage() {
         }}
       >
         <Toolbar />
-        {/* <PlacesSearch /> */}
+        <PlacesSearch />
       </Box>
     </Box>
   );

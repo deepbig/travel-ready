@@ -137,7 +137,7 @@ function CovidSearch() {
                     Selected countries does not have COVID-19 data.
                   </Typography>
                 ) : (
-                  <CovidSearchResult />
+                  <CovidSearchResult isMinimum={false} />
                 )
               ) : (
                 <Typography variant='guideline' align='center'>
