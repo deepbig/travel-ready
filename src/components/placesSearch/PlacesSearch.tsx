@@ -45,7 +45,7 @@ function PlacesSearch() {
         <Grid item xs={12} md={5}>
           <Box>
             <Typography variant='h4' align='center'>
-              Search by Tag
+              Places Search by Interset
             </Typography>
           </Box>
           <TextField
