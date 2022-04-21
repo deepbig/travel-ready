@@ -16,10 +16,11 @@ export const travelHistorySlice = createSlice({
     reducers: {
         setTravelHistoryList: (state, action: PayloadAction<TravelHistoryData[]>) => {
             state.travelHistoryList = action.payload;
-        }
+        },
+        reset: () => initialState
     }
 })
 
-export const { setTravelHistoryList } = travelHistorySlice.actions;
+export const { setTravelHistoryList, reset } = travelHistorySlice.actions;
 export const getTravelHistoryList = (state: RootState) => state.travelHistory.travelHistoryList;
 export default travelHistorySlice.reducer;

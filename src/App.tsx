@@ -7,8 +7,14 @@ import LandingPage from 'pages/LandingPage';
 import DashboardPage from 'pages/DashboardPage';
 import CovidSearchPage from 'pages/CovidSearchPage';
 import PlacesSearchPage from 'pages/PlacesSearchPage';
+import ProfilePage from 'pages/ProfilePage';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { setUser } from 'modules/user';
+import { setUser, reset as resetUser } from 'modules/user';
+import { reset as resetTravelHistory } from 'modules/travelHistory';
+import { reset as resetCountry } from 'modules/country';
+import { reset as resetCovid } from 'modules/covid';
+import { reset as resetPlacesSearch } from 'modules/placesSearch';
+import { reset as resetBackdrop } from 'modules/backdrop';
 import { getLoggedInUser } from 'db/repositories/user';
 import { getBackdrop } from 'modules/backdrop';
 
@@ -35,7 +41,12 @@ function App() {
         dispatch(setUser(await getLoggedInUser(user)));
       } else {
         navigate('/landing');
-        dispatch(setUser(null));
+        dispatch(resetUser());
+        dispatch(resetCountry());
+        dispatch(resetCovid());
+        dispatch(resetPlacesSearch());
+        dispatch(resetTravelHistory());
+        dispatch(resetBackdrop());
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,6 +59,7 @@ function App() {
         <Route path='/' element={<></>} />
         <Route path='/landing' element={<LandingPage />} />
         <Route path='/dashboard' element={<DashboardPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
         <Route
           path='/covid-19-condition-search'
           element={<CovidSearchPage />}
