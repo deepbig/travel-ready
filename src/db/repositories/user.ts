@@ -1,5 +1,5 @@
 import db from "..";
-import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, getDocs, query, updateDoc, arrayUnion, arrayRemove, deleteDoc } from 'firebase/firestore';
 import { TravelHistoryAddFormData, TravelHistoryData, UserData } from 'types';
 const COLLECTION_NAME = "users";
 
@@ -60,6 +60,31 @@ export const getUserFromDB = async (uid: string): Promise<UserData> => {
     } else {
         alert('user does not exist!');
         return null;
+    }
+}
+
+export const updateUser = async (uid: string, userData: UserData): Promise<UserData> => {
+    try {
+        await setDoc(doc(db, COLLECTION_NAME, uid), {
+            ...userData
+        });
+    } catch (e) {
+        // need to handle error case.
+        return null as UserData;
+    }
+    const docRef = doc(db, COLLECTION_NAME, uid);
+    const newDocSnap = await getDoc(docRef);
+    return newDocSnap.data() as UserData;
+}
+
+export const deleteUser = async (uid: any): Promise<boolean> => {
+    try {
+        const docRef = doc(db, COLLECTION_NAME, uid);
+        await deleteDoc(docRef);
+        return true;
+    } catch (e) {
+        alert('failed to delete user by database error. Please try again.');
+        return false;
     }
 }
 
