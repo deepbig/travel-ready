@@ -1258,11 +1258,12 @@ export const countrySlice = createSlice({
     reducers: {
         setCountryList: (state, action: PayloadAction<CountryData[]>) => {
             state.countryList = action.payload;
-        }
+        },
+        reset: () => initialState
     }
 })
 
-export const { setCountryList } = countrySlice.actions;
+export const { setCountryList, reset } = countrySlice.actions;
 
 export const getCountries = (state: RootState) => state.country.countryList;
 

@@ -99,11 +99,13 @@ function TravelHistory(props: TravelHistoryProps) {
           )
         );
       } else {
-        dispatch(
-          setTravelHistoryList(
-            await getListTravelHistory(user?.travel_histories, null, 3)
-          )
-        );
+        if (user?.travel_histories.length > 0) {
+          dispatch(
+            setTravelHistoryList(
+              await getListTravelHistory(user.travel_histories, null, 3)
+            )
+          );
+        }
       }
     }
   };

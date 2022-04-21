@@ -19,7 +19,7 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Login from 'components/login/Login';
-import Profile from 'components/profile/Profile';
+import UserMenu from 'components/profile/UserMenu';
 
 function MenuListItems(props: any) {
   const navigate = useNavigate();
@@ -163,7 +163,7 @@ export default function NavBar({ selectedName }: { selectedName: string }) {
             {selectedName}
           </Typography>
 
-          {selectedName ? <Profile /> : <Login />}
+          {selectedName ? <UserMenu /> : <Login />}
         </Toolbar>
       </AppBar>
       {selectedName ? (

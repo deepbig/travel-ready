@@ -16,10 +16,11 @@ export const covidSlice = createSlice({
     reducers: {
         setCovidResult: (state, action: PayloadAction<CovidResultData[]>) => {
             state.covidResult = action.payload;
-        }
+        },
+        reset: () => initialState
     }
 })
 
-export const { setCovidResult } = covidSlice.actions;
+export const { setCovidResult, reset } = covidSlice.actions;
 export const getCovidResult = (state: RootState) => state.covid.covidResult;
 export default covidSlice.reducer;

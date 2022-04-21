@@ -2,6 +2,7 @@ export enum PageName {
     LANDING = '',
     SIGIN = '',
     DASHBOARD = 'Dashboard',
+    PROFILE = "Profile",
     COVID_19_CONDITION_SEARCH = 'COVID-19 Condition Search',
     PLACES_BY_INTEREST_SEARCH = 'Places Search By Interests',
 }

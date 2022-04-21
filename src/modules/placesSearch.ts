@@ -16,10 +16,11 @@ export const placesSearchSlice = createSlice({
     reducers: {
         setPlacesSearchResult: (state, action: PayloadAction<TravelHistoryData[]>) => {
             state.PlacesSearchResult = action.payload;
-        }
+        },
+        reset: () => initialState
     }
 })
 
-export const { setPlacesSearchResult } = placesSearchSlice.actions;
+export const { setPlacesSearchResult, reset } = placesSearchSlice.actions;
 export const getPlacesSearchResult = (state: RootState) => state.placesSearch.PlacesSearchResult;
 export default placesSearchSlice.reducer;

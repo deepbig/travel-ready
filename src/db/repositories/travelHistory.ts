@@ -85,6 +85,30 @@ export const setTravelHistory = async (data: TravelHistoryAddFormData) => {
     await addUserTravelHistory(data);
 }
 
+export const deleteAllTravelHistoriesByUserId = async (uid: any): Promise<boolean> => {
+    try {
+        const q = query(collection(db, COLLECTION_NAME), where("uid", "==", uid));
+        const travelHistoriesSnapshot = await getDocs(q);
+        travelHistoriesSnapshot.docs.forEach(async (_data) => {
+            await delTravelHistoryById(_data.id);
+        });
+        return true;
+    } catch (e) {
+        alert("failed to delete all travel Histories from user. Please try again.");
+        return false;
+    }
+}
+
+export const delTravelHistoryById = async (id: string) => {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    await deleteDoc(docRef);
+
+    const imageRef = ref(storage, `/travel_histories/${id}/1.jpg`);
+    deleteObject(imageRef).then().catch(() => {
+        alert("Fail to delete image due to internal error.");
+    });
+}
+
 export const delTravelHistory = async (uid: string, postData: TravelHistoryData) => {
 
     await deleteDoc(doc(db, COLLECTION_NAME, postData.id));
