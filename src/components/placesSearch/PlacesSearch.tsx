@@ -13,6 +13,7 @@ import Title from 'components/title/Title';
 import { setPlacesSearchResult } from 'modules/placesSearch';
 import { getListTravelHistoryByTag } from 'db/repositories/travelHistory';
 import TravelHistory from 'components/travelHistory/TravelHistory';
+import { PostType } from 'types';
 
 function PlacesSearch() {
   const dispatch = useAppDispatch();
@@ -77,7 +78,7 @@ function PlacesSearch() {
             }}
             elevation={4}
           >
-            <Title>Places Search Results</Title>
+            <Title>{PostType.PLACES_SEARCH}</Title>
             <Box display='flex' justifyContent='center' m={2}>
               {backdrop ? (
                 <CircularProgress color='inherit' />
@@ -86,6 +87,7 @@ function PlacesSearch() {
                   open={false}
                   handleClose={() => {}}
                   isPersonalOnly={false}
+                  postType={PostType.PLACES_SEARCH}
                 />
               ) : (
                 <Typography variant='guideline' align='center'>

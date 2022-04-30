@@ -5,6 +5,7 @@ import covidReducer from './covid';
 import backdropReducer from './backdrop';
 import travelHistoryReducer from './travelHistory';
 import placesSearchReducer from './placesSearch';
+import placesLikeReducer from './placesLike';
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         covid: covidReducer,
         backdrop: backdropReducer,
         travelHistory: travelHistoryReducer,
-        placesSearch: placesSearchReducer
+        placesSearch: placesSearchReducer,
+        placesLike: placesLikeReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
     devTools: process.env.NODE_ENV !== 'production',

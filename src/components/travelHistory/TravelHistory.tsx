@@ -27,21 +27,24 @@ import {
   setTravelHistoryList,
 } from 'modules/travelHistory';
 import {
+  getPlacesSearchResult,
+  setPlacesSearchResult,
+} from 'modules/placesSearch';
+import { getPlacesLikeResult, setPlacesLikeResult } from 'modules/placesLike';
+import {
   delTravelHistory,
   getListTravelHistory,
+  getListTravelHistoryByLike,
   getSingleTravelHistory,
   updateTravelHistoryLikes,
 } from 'db/repositories/travelHistory';
 import { auth } from 'db';
 import { setBackdrop } from 'modules/backdrop';
-import { TravelHistoryData } from 'types';
+import { PostType, TravelHistoryData } from 'types';
 import { getUserFromDB } from 'db/repositories/user';
 import { grey, pink } from '@mui/material/colors';
 import { isFound } from 'lib';
-import {
-  getPlacesSearchResult,
-  setPlacesSearchResult,
-} from 'modules/placesSearch';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -53,13 +56,18 @@ interface TravelHistoryProps {
   open: boolean;
   handleClose: () => void;
   isPersonalOnly: boolean;
+  postType: PostType;
 }
 
 function TravelHistory(props: TravelHistoryProps) {
   const user = useAppSelector(getUser);
   const currentUser = auth.currentUser;
   const travelHistories = useAppSelector(
-    props.isPersonalOnly ? getTravelHistoryList : getPlacesSearchResult
+    props.postType === PostType.TRAVEL_HISTORY
+      ? getTravelHistoryList
+      : props.postType === PostType.PLACES_SEARCH
+      ? getPlacesSearchResult
+      : getPlacesLikeResult
   );
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(-1);
@@ -85,29 +93,53 @@ function TravelHistory(props: TravelHistoryProps) {
   }, [count]);
 
   const updateTravelHistoryList = async (count: number) => {
-    if (user) {
+    if (currentUser && user) {
       if (count > 0) {
-        dispatch(
-          setTravelHistoryList(
-            [...travelHistories].concat(
-              await getListTravelHistory(
-                user?.travel_histories,
-                travelHistories[travelHistories.length - 1].createAt,
-                3
+        props.postType === PostType.TRAVEL_HISTORY
+          ? dispatch(
+              setTravelHistoryList(
+                [...travelHistories].concat(
+                  await getListTravelHistory(
+                    user?.travel_histories,
+                    travelHistories[travelHistories.length - 1].createAt,
+                    3
+                  )
+                )
               )
             )
-          )
-        );
+          : dispatch(
+              setPlacesLikeResult(
+                [...travelHistories].concat(
+                  await getListTravelHistoryByLike(
+                    currentUser.uid,
+                    travelHistories[travelHistories.length - 1].createAt,
+                    3
+                  )
+                )
+              )
+            );
       } else {
-        if (user?.travel_histories.length > 0) {
+        if (
+          props.postType === PostType.TRAVEL_HISTORY &&
+          user.travel_histories.length > 0
+        ) {
           dispatch(
             setTravelHistoryList(
               await getListTravelHistory(user.travel_histories, null, 3)
             )
           );
+        } else if (props.postType === PostType.LIKED_PLACES) {
+          const initialPosts = await getListTravelHistoryByLike(
+            currentUser.uid,
+            null,
+            3
+          );
+          if (initialPosts.length > 0) {
+            dispatch(setPlacesLikeResult(initialPosts));
+          }
         }
-      }
-    }
+      } // end of else
+    } // end of checking valid user
   };
 
   const updateCount = () => {
@@ -195,9 +227,15 @@ function TravelHistory(props: TravelHistoryProps) {
             You don't have any travel history. Please add places you visited!
           </Typography>
         ) : !props.isPersonalOnly && travelHistories?.length === 0 ? (
-          <Typography variant='guideline' align='center'>
-            There are no places available with the tag you provided.
-          </Typography>
+          props.postType === PostType.LIKED_PLACES ? (
+            <Typography variant='guideline' align='center'>
+              You don't have any liked travel history.
+            </Typography>
+          ) : (
+            <Typography variant='guideline' align='center'>
+              There are no places available with the tag you provided.
+            </Typography>
+          )
         ) : (
           <>
             <Grid

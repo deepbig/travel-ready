@@ -35,8 +35,10 @@ export const getListTravelHistoryByTag = async (tag: string): Promise<TravelHist
     return travelHistoriesSnapshot.docs.length > 0 ? data as TravelHistoryData[] : [];
 }
 
-export const getListTravelHistoryByLike = async (uid: string): Promise<TravelHistoryData[]> => {
-    const q = query(collection(db, COLLECTION_NAME), where("likes", "array-contains", uid), orderBy("createAt", "desc"));
+export const getListTravelHistoryByLike = async (uid: string, lastDate: any, count: number): Promise<TravelHistoryData[]> => {
+    const q = lastDate == null ?
+        query(collection(db, COLLECTION_NAME), where("likes", "array-contains", uid), orderBy("createAt", "desc"), limit(count))
+        : query(collection(db, COLLECTION_NAME), where("likes", "array-contains", uid), orderBy("createAt", "desc"), startAfter(lastDate), limit(count));
 
     const travelHistoriesSnapshot = await getDocs(q);
     let data: Array<any> = [];
