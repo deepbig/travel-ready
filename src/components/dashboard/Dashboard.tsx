@@ -5,6 +5,7 @@ import Copyright from 'components/copyright/Copyright';
 import TravelHistory from 'components/travelHistory/TravelHistory';
 import TravelGoal from 'components/travelGoal/TravelGoal';
 import TravelPlan from 'components/travelPlan/TravelPlan';
+import { PostType } from 'types';
 
 function Dashboard() {
   const [openTravelHistoryAddForm, setOpenTravelHistoryAddForm] =
@@ -63,12 +64,31 @@ function Dashboard() {
             }}
           >
             <Title buttonFunction={handleOpenTravelHistoryForm}>
-              Travel History
+              {PostType.TRAVEL_HISTORY}
             </Title>
             <TravelHistory
               open={openTravelHistoryAddForm}
               handleClose={handleCloseHistoryAddForm}
               isPersonalOnly={true}
+              postType={PostType.TRAVEL_HISTORY}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper
+            elevation={4}
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Title> {PostType.LIKED_PLACES} </Title>
+            <TravelHistory
+              open={false}
+              handleClose={() => {}}
+              isPersonalOnly={false}
+              postType={PostType.LIKED_PLACES}
             />
           </Paper>
         </Grid>

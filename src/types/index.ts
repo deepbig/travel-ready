@@ -7,6 +7,12 @@ export enum PageName {
     PLACES_BY_INTEREST_SEARCH = 'Places Search By Interests',
 }
 
+export enum PostType {
+    TRAVEL_HISTORY = 'Travel History',
+    LIKED_PLACES = 'Places I Like',
+    PLACES_SEARCH = 'Places Search Results',
+}
+
 export type UserData = {
     displayName: string,
     email: string,
