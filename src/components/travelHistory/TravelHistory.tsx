@@ -77,6 +77,7 @@ function TravelHistory(props: TravelHistoryProps) {
     null
   );
   const [isLikeProcessing, setIsLikeProcessing] = useState<string | null>(null);
+  const [isLast, setIsLast] = useState(false);
 
   useEffect(() => {
     if (user && count === -1) {
@@ -95,29 +96,29 @@ function TravelHistory(props: TravelHistoryProps) {
   const updateTravelHistoryList = async (count: number) => {
     if (currentUser && user) {
       if (count > 0) {
-        props.postType === PostType.TRAVEL_HISTORY
-          ? dispatch(
-              setTravelHistoryList(
-                [...travelHistories].concat(
-                  await getListTravelHistory(
-                    user?.travel_histories,
-                    travelHistories[travelHistories.length - 1].createAt,
-                    3
-                  )
+        if (props.postType === PostType.TRAVEL_HISTORY) {
+          dispatch(
+            setTravelHistoryList(
+              [...travelHistories].concat(
+                await getListTravelHistory(
+                  user?.travel_histories,
+                  travelHistories[travelHistories.length - 1].createAt,
+                  3
                 )
               )
             )
-          : dispatch(
-              setPlacesLikeResult(
-                [...travelHistories].concat(
-                  await getListTravelHistoryByLike(
-                    currentUser.uid,
-                    travelHistories[travelHistories.length - 1].createAt,
-                    3
-                  )
-                )
-              )
-            );
+          );
+        } else {
+          const newList = await getListTravelHistoryByLike(
+            currentUser.uid,
+            travelHistories[travelHistories.length - 1].createAt,
+            3
+          );
+          if (newList.length <= 0) {
+            setIsLast(true);
+          }
+          dispatch(setPlacesLikeResult([...travelHistories].concat(newList)));
+        }
       } else {
         if (
           props.postType === PostType.TRAVEL_HISTORY &&
@@ -134,6 +135,9 @@ function TravelHistory(props: TravelHistoryProps) {
             null,
             3
           );
+          if (initialPosts.length < 3) {
+            setIsLast(true);
+          }
           if (initialPosts.length > 0) {
             dispatch(setPlacesLikeResult(initialPosts));
           }
@@ -227,7 +231,7 @@ function TravelHistory(props: TravelHistoryProps) {
             You don't have any travel history. Please add places you visited!
           </Typography>
         ) : !props.isPersonalOnly && travelHistories?.length === 0 ? (
-          props.postType === PostType.LIKED_PLACES ? (
+          props.postType === PostType.LIKED_PLACES && isLast ? (
             <Typography variant='guideline' align='center'>
               You don't have any liked travel history.
             </Typography>
@@ -357,6 +361,20 @@ function TravelHistory(props: TravelHistoryProps) {
                   <Typography>
                     <Typography variant='guideline' align='center'>
                       This is the last travel history!
+                    </Typography>
+                  </Typography>
+                ) : (
+                  <IconButton onClick={updateCount}>
+                    <ExpandMoreIcon />
+                  </IconButton>
+                )}
+              </Box>
+            ) : props.postType === PostType.LIKED_PLACES ? (
+              <Box mt={2} display='flex' justifyContent='center'>
+                {isLast ? (
+                  <Typography>
+                    <Typography variant='guideline' align='center'>
+                      This is the last place!
                     </Typography>
                   </Typography>
                 ) : (
